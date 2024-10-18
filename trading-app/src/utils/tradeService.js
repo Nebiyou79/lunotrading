@@ -1,7 +1,7 @@
 // services/tradeService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://116.203.108.180:5000/api';
 
 // Function to get all trades
 export const getAllTrades = async () => {
@@ -15,7 +15,6 @@ export const getAllTrades = async () => {
     throw error;
   }
 };
-
 // Function to get user by ID
 export const getUserById = async (userId) => {
     try {
@@ -28,7 +27,6 @@ export const getUserById = async (userId) => {
       throw error;
     }
   };
-
 // Function to decide trade outcome
 export const decideTradeOutcome = async (tradeData) => {
   try {
@@ -51,11 +49,10 @@ export const decideTradeOutcome = async (tradeData) => {
     throw error;
   }
 };
-
 // Place trade service
 export const placeTrade = async (tradeData) => {
   const token = localStorage.getItem('token');
-  const response = await axios.post('http://localhost:5000/api/trade/place', tradeData, {
+  const response = await axios.post(`${API_URL}/trade/place`, tradeData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -66,7 +63,7 @@ export const placeTrade = async (tradeData) => {
 // Get user trade history
 export const getUserTradeHistory = async () => {
   const token = localStorage.getItem('token');
-  const response = await axios.get('http://localhost:5000/api/trade/history', {
+  const response = await axios.get(`${API_URL}/api/trade/history`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -77,10 +74,10 @@ export const getUserTradeHistory = async () => {
 //AUTO MODE 
 export const endTrade = async (tradeId) => {
   const token = localStorage.getItem('token');
-  const response = await axios.put(`http://localhost:5000/api/trade/end/${tradeId}`, {}, {
+  const response = await axios.put(`${API_URL}/trade/end/${tradeId}`, {}, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
   return response.data;
-};
+}

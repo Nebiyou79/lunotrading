@@ -9,7 +9,7 @@ type DepositAddresses = {
  
 
 export const getDepositAddresses = async (token: string) => {
-    const response = await axios.get('http://localhost:5000/api/deposit/addresses', {
+    const response = await axios.get('http://116.203.108.180:5000/api/deposit/addresses', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -31,7 +31,7 @@ export const getDepositAddresses = async (token: string) => {
            },
          };
        }  
-       const response = await axios.put('http://localhost:5000/api/deposit/addresses', data, {
+       const response = await axios.put('http://116.203.108.180:5000/api/deposit/addresses', data, {
          headers: {
            Authorization: `Bearer ${token}`,
          },

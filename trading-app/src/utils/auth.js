@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/auth/'; // Adjust based on your backend URL
+const API_URL = 'http://116.203.108.180:5000/api/auth/'; // Adjust based on your backend URL
 
 export const login = async (email, password) => {
   const response = await axios.post(`${API_URL}login`, { email, password });
@@ -33,7 +33,6 @@ export const getUserRole = () => {
     }
     return null; // Return null during SSR
 };
-
 export const isAuthenticated = () => {
     if (typeof window !== 'undefined') { // Check if we're running in the browser
       const token = localStorage.getItem('token');
@@ -41,11 +40,7 @@ export const isAuthenticated = () => {
         try {
           const decodedToken = JSON.parse(atob(token.split('.')[1]));
           const currentTime = Date.now() / 1000; // Current time in seconds
-  
-          console.log("Decoded Token:", decodedToken); // Log the decoded token to check its contents
-          
           if (decodedToken.exp > currentTime) {
-            console.log("Role:", decodedToken.role); // Log the role to verify if it's being decoded correctly
             return { loggedIn: true, role: decodedToken.role }; // Return loggedIn and role
           }
         } catch (error) {

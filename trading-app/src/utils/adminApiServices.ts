@@ -1,26 +1,19 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-// Base API URL
-const API_URL = 'http://localhost:5000/api/admin';
-
-// Function to get the token from localStorage
+const API_URL = 'http://116.203.108.180:5000/api/admin';
 const getToken = () => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('token');
   }
   return null;
 };
-
-// Create a configured axios instance
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   }
 });
-
-// Add an interceptor to inject the token into the Authorization header before every request
 axiosInstance.interceptors.request.use((config) => {
   const token = getToken();
   if (token) {
@@ -30,8 +23,6 @@ axiosInstance.interceptors.request.use((config) => {
 }, (error) => {
   return Promise.reject(error);
 });
-
-// Set Trade Outcome (win or lose)
 export const setTradeOutcome = async (tradeId: string, outcome: string) => {
   try {
     const response = await axiosInstance.post(`/trade/${tradeId}/outcome`, { outcome });
@@ -41,8 +32,6 @@ export const setTradeOutcome = async (tradeId: string, outcome: string) => {
     throw error;
   }
 };
-
-// Update User Balance (admin only)
 export const updateUserBalance = async (userId: string, balance: number) => {
   try {
     const response = await axiosInstance.put(`/user/${userId}/balance`, { balance });
@@ -52,8 +41,6 @@ export const updateUserBalance = async (userId: string, balance: number) => {
     throw error;
   }
 };
-
-// Get All Users (admin only)
 export const getAllUsers = async () => {
   try {
     const response = await axiosInstance.get('/users');
@@ -63,8 +50,6 @@ export const getAllUsers = async () => {
     throw error;
   }
 };
-
-// Update User Data (Balance & Role)
 export const updateUserBalanceAndRole = async (userId: string, balance: number, role: string) => {
   try {
     const response = await axiosInstance.put(`/user/${userId}`, { balance, role });
@@ -74,8 +59,6 @@ export const updateUserBalanceAndRole = async (userId: string, balance: number, 
     throw error;
   }
 };
-
-// Set Trade Result Manually
 export const setTradeResult = async (tradeId: string, result: 'win' | 'lose') => {
   try {
     const response = await axiosInstance.post('/trade/result', { tradeId, result });
@@ -85,8 +68,6 @@ export const setTradeResult = async (tradeId: string, result: 'win' | 'lose') =>
     throw error;
   }
 };
-
-// Get Pending Deposits
 export const getPendingDeposits = async () => {
   try {
     const response = await axiosInstance.get('/deposits/pending');
@@ -96,8 +77,6 @@ export const getPendingDeposits = async () => {
     throw error;
   }
 };
-
-// Get Pending Withdrawals
 export const getPendingWithdrawals = async () => {
   try {
     const response = await axiosInstance.get('/withdrawals/pending');
@@ -107,8 +86,6 @@ export const getPendingWithdrawals = async () => {
     throw error;
   }
 };
-
-// Approve Deposit
 export const approveDeposit = async (depositId: string) => {
   try {
     const response = await axiosInstance.put(`/deposits/${depositId}/approve`);
@@ -118,8 +95,6 @@ export const approveDeposit = async (depositId: string) => {
     throw error;
   }
 };
-
-// Reject Deposit
 export const rejectDeposit = async (depositId: string) => {
   try {
     const response = await axiosInstance.delete(`/deposits/${depositId}/reject`);
@@ -129,8 +104,6 @@ export const rejectDeposit = async (depositId: string) => {
     throw error;
   }
 };
-
-// Approve Withdrawal
 export const approveWithdrawal = async (withdrawalId: string) => {
   try {
     const response = await axiosInstance.put(`/withdrawals/${withdrawalId}/approve`);
@@ -140,7 +113,6 @@ export const approveWithdrawal = async (withdrawalId: string) => {
     throw error;
   }
 };
-
 export const rejectWithdrawal = async (withdrawalId: string) => {
   try {
     const response = await axiosInstance.put(`/withdrawals/${withdrawalId}/reject`);
@@ -150,6 +122,3 @@ export const rejectWithdrawal = async (withdrawalId: string) => {
     throw error;
   }
 };
-
-
-
