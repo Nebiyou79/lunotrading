@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://116.203.108.180:5000/api/auth/'; // Adjust based on your backend URL
 
 export const login = async (email, password) => {
-  const response = await axios.post('http://116.203.108.180:5000/api/auth/login', { email, password });
+  const response = await axios.post(`${API_URL}login`, { email, password });
   
   if (response.data.token && response.data.userId) { // Assuming userId is in the response
       localStorage.setItem('token', response.data.token);
