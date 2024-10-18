@@ -24,7 +24,7 @@ const NavBar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <Image src="/images/logo.png" alt="Company Logo" width={40} height={40} />
-          <span className="text-white text-2xl font-bold">TradingCo</span>
+          <span className="text-white text-2xl font-bold">Luno Trading</span>
         </div>
 
         {/* Mobile Menu Button */}
