@@ -16,7 +16,7 @@ const UsersPage: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get<User[]>('http://116.203.108.180:5000/api/auth/users', {
+        const response = await axios.get<User[]>('http://116.203.108.180:5000/auth/users', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +37,7 @@ const UsersPage: React.FC = () => {
   const fetchAutoMode = async (userId: string) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://116.203.108.180:5000/api/trade/automode/${userId}`, {
+      const response = await axios.get(`http://116.203.108.180:5000/trade/automode/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +59,7 @@ const UsersPage: React.FC = () => {
       const userId = updatedUser._id;
 
       const response = await axios.put(
-        `http://116.203.108.180:5000/api/admin/users/${userId}`,
+        `http://116.203.108.180:5000/admin/users/${userId}`,
         updatedUser,
         {
           headers: {
@@ -80,7 +80,7 @@ const UsersPage: React.FC = () => {
   const handleDeleteUser = async (userId: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://116.203.108.180:5000/api/auth/users/${userId}`, {
+      await axios.delete(`http://116.203.108.180:5000/auth/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -108,7 +108,7 @@ const UsersPage: React.FC = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.put(
-        `http://116.203.108.180:5000/api/trade/automode/${userId}`,
+        `http://116.203.108.180:5000/trade/automode/${userId}`,
         { autoMode: mode },
         {
           headers: {
