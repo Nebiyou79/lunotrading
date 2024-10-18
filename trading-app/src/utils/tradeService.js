@@ -63,7 +63,7 @@ export const placeTrade = async (tradeData) => {
 // Get user trade history
 export const getUserTradeHistory = async () => {
   const token = localStorage.getItem('token');
-  const response = await axios.get(`${API_URL}/api/trade/history`, {
+  const response = await axios.get(`${API_URL}/trade/history`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
