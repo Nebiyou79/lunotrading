@@ -4,6 +4,7 @@ import Image from 'next/image';
 import NavBar from '@/components/navbar';
 import Footer from '@/components/footer';
 import 'swiper/css/pagination';
+import Link from 'next/link';
 
 const Home = () => {
   return (
@@ -22,9 +23,9 @@ const Home = () => {
           <p className="text-lg md:text-2xl text-gray-200 mt-4">
             Empower your trading journey with real-time insights and expert analysis.
           </p>
-          <a href="/markets" className="mt-6 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold">
+          <Link href="/markets" className="mt-6 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold">
             Start Trading
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -32,12 +33,12 @@ const Home = () => {
       <section id="features" className="py-12 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-600">
-            Why Choose Bane View?
+            Why Choose Luna Trading?
           </h2>
           <div className="grid gap-8 mt-10 md:grid-cols-3">
             <div className="p-6 shadow-lg rounded-lg bg-white hover:shadow-xl transition duration-300">
               <div className="mb-4">
-                <Image src="/icons/real-time-data.svg" alt="Real-Time Data" width={60} height={60} />
+                <Image src="/icons/real-time-data.png" alt="Real-Time Data" width={60} height={60} />
               </div>
               <h3 className="text-2xl font-semibold text-gray-800">Real-Time Data</h3>
               <p className="mt-4 text-gray-600">
@@ -46,7 +47,7 @@ const Home = () => {
             </div>
             <div className="p-6 shadow-lg rounded-lg bg-white hover:shadow-xl transition duration-300">
               <div className="mb-4">
-                <Image src="/icons/analytics.svg" alt="Advanced Analytics" width={60} height={60} />
+                <Image src="/icons/analytics.png" alt="Advanced Analytics" width={60} height={60} />
               </div>
               <h3 className="text-2xl font-semibold text-gray-800">Advanced Analytics</h3>
               <p className="mt-4 text-gray-600">
@@ -55,7 +56,7 @@ const Home = () => {
             </div>
             <div className="p-6 shadow-lg rounded-lg bg-white hover:shadow-xl transition duration-300">
               <div className="mb-4">
-                <Image src="/icons/support.svg" alt="Expert Support" width={60} height={60} />
+                <Image src="/icons/support.png" alt="Expert Support" width={60} height={60} />
               </div>
               <h3 className="text-2xl font-semibold text-gray-800">Expert Support</h3>
               <p className="mt-4 text-gray-600">
@@ -74,7 +75,7 @@ const Home = () => {
           </h2>
           <div className="mt-8 flex flex-col md:flex-row md:justify-around">
             <div className="md:w-1/3 p-6 bg-gray-100 rounded-lg">
-              <p className="text-lg text-gray-700">Bane View has transformed my trading experience. The real-time insights are invaluable!</p>
+              <p className="text-lg text-gray-700">Luna Trading has transformed my trading experience. The real-time insights are invaluable!</p>
               <h4 className="mt-4 font-bold text-gray-800">- Sarah T., Professional Trader</h4>
             </div>
             <div className="md:w-1/3 p-6 bg-gray-100 rounded-lg mt-6 md:mt-0">
