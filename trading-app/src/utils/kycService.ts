@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://116.203.108.180:5000/api/kyc'; // Adjust the URL based on your setup
+const API_URL = 'http://116.203.108.180:5000/api/kyc'; // Adjust the URL based on your setup
 
 // kycApiService.ts
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,7 +11,7 @@ export const submitKyc = async (userId: string, name: string, email: string, kyc
   formData.append('email', email);
   formData.append('kycDocument', kycDocument);  // Ensure this matches the field expected in the backend
 
-  const response = await fetch('https://116.203.108.180:5000/api/kyc/submit', {
+  const response = await fetch('http://116.203.108.180:5000/api/kyc/submit', {
     method: 'POST',
     body: formData,
   });
