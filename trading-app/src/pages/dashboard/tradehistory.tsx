@@ -51,7 +51,6 @@ const TradeHistory: React.FC = () => {
               <th className="p-4">Status</th>
               <th className="p-4">Profit/Loss</th>
               <th className="p-4">Time Left</th>
-              <th className="p-4">Date</th>
             </tr>
           </thead>
           <tbody className="bg-gray-700 divide-y divide-gray-600">
@@ -81,7 +80,6 @@ const TradeHistory: React.FC = () => {
                   <td className="p-4">
                     {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
                   </td>
-                  <td className="p-4">{new Date(trade.createdAt).toLocaleString()}</td>
                 </tr>
               );
             })}

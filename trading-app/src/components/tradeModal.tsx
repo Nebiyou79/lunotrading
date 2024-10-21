@@ -86,8 +86,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
           value={capital}
           onChange={(e) => setCapital(Number(e.target.value))}
           className="w-full p-2 text-black rounded"
-          min={100}
-          max={1000000}
         />
       </div>
 
@@ -117,7 +115,7 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
           onChange={(e) => setLeverage(Number(e.target.value))}
           className="w-full p-2 text-black rounded"
           min={1}
-          max={10}
+          max={5}
         />
       </div>
 

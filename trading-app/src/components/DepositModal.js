@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { QRCodeCanvas } from 'qrcode.react'; // Assuming you're using qrcode.react for QR codes
 import { getDepositAddresses } from '../utils/depositService'; // Service to interact with the backend
@@ -17,15 +18,17 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Fetch current addresses when the component mounts
     const fetchAddresses = async () => {
-      if (!token) {
-        return; // Early return if no token is available
-      }
+      if (!token) return;
       try {
         const response = await getDepositAddresses(token);
-        setAddresses(response.data);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        if (response.data) {
+          setAddresses({
+            ethAddress: response.data.ethAddress || '',
+            btcAddress: response.data.btcAddress || '',
+            usdtAddress: response.data.usdtAddress || '',
+          });
+        }
       } catch (err) {
         setError('Error fetching deposit addresses');
         toast.error('Error fetching deposit addresses.');
@@ -33,6 +36,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
     };
     fetchAddresses();
   }, [token]);
+  
 
   const handleFileUpload = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -69,10 +73,22 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
   };
 
   const copyToClipboard = (address) => {
-    navigator.clipboard.writeText(address);
-    setMessage('Address copied to clipboard.');
-    toast.success('Address copied to clipboard.')
+    if (!address) {
+      setError('Address not available to copy.');
+      toast.error('Address not available to copy.');
+      return;
+    }
+    navigator.clipboard.writeText(address)
+      .then(() => {
+        setMessage('Address copied to clipboard.');
+        toast.success('Address copied to clipboard.');
+      })
+      .catch(() => {
+        setError('Failed to copy address.');
+        toast.error('Failed to copy address.');
+      });
   };
+  
 
   return (
     <>
@@ -81,7 +97,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
           <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl">
             <h2 className="text-xl mb-4 text-center text-white">Deposit Addresses</h2>
             <div className="flex justify-around space-x-4 mb-6">
-              {/* USDT */}
+              {/* ETH */}
               <div className="flex flex-col items-center">
                 <p>ETH</p>
                 <QRCodeCanvas value={addresses.ethAddress} />
@@ -107,7 +123,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
                 </button>
               </div>
 
-              {/* ETH */}
+              {/* USDT */}
               <div className="flex flex-col items-center">
                 <p>USDT:</p>
                 <QRCodeCanvas value={addresses.usdtAddress} />
