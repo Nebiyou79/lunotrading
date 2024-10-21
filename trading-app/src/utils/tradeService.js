@@ -1,7 +1,7 @@
 // services/tradeService.js
 import axios from 'axios';
 
-const API_URL = 'http://116.203.108.180:5000/api';
+const API_URL = 'https://116.203.108.180:5000/api';
 
 // Function to get all trades
 export const getAllTrades = async () => {

@@ -4,7 +4,7 @@
 export const getUserProfile = async () => {
   try {
     const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    const response = await fetch('http://116.203.108.180:5000/api/profile', {
+    const response = await fetch('https://116.203.108.180:5000/api/profile', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`, // Set the Authorization header
@@ -25,7 +25,7 @@ export const getUserProfile = async () => {
 
 // Update user profile
 export const updateUserProfile = async (profileData: { name: string; email: string }) => {
-  const response = await fetch('http://116.203.108.180:5000/api/profile/update', {
+  const response = await fetch('https://116.203.108.180:5000/api/profile/update', {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -42,7 +42,7 @@ export const updateUserProfile = async (profileData: { name: string; email: stri
 // Change user password
 export const changePassword = async (passwordData: { oldPassword: string; newPassword: string }) => {
   try {
-    const response = await fetch('http://116.203.108.180:5000/api/profile/change-password', {
+    const response = await fetch('https://116.203.108.180:5000/api/profile/change-password', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,

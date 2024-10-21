@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { CryptoData } from '../types/crypto';
 
-const BASE_URL = 'http://116.203.108.180:5000/api/prices';
+const BASE_URL = 'https://116.203.108.180:5000/api/prices';
 const CACHE_EXPIRATION = 60 * 1000; // 1 minute
 
 const getToken = () => {
