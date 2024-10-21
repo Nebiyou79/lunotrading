@@ -2,17 +2,26 @@ const Trade = require('../models/Trade');
 const User = require('../models/User');
 
 // Place a trade
+// Place a trade
 exports.placeTrade = async (req, res) => {
   try {
     const { assetId, capital, returnRate, leverage, duration, transactionFee } = req.body;
     const userId = req.user.id;
+
+    // Fetch the user
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
+
+    // Check if the user has sufficient balance
     if (user.balance < capital) {
       return res.status(400).json({ message: 'Insufficient balance' });
     }
+
+    // Deduct the capital from the user's balance
     user.balance -= capital;
     await user.save();
+
+    // Create a new trade
     const newTrade = await Trade.create({
       user: userId,
       assetId,
@@ -21,27 +30,36 @@ exports.placeTrade = async (req, res) => {
       leverage,
       duration,
       transactionFee,
-      status: 'pending'
+      status: 'pending',
     });
-    res.status(201).json(newTrade);
+
+    // Respond with the new trade details and updated user balance
+    res.status(201).json({
+      trade: newTrade,
+      balance: user.balance, // Include updated balance in the response
+    });
+
+    // Set a timeout to automatically end the trade after the duration
     setTimeout(async () => {
       try {
         const dummyRes = {
           status: () => dummyRes,
           json: () => dummyRes,
-          headersSent: false // Dummy object to avoid sending real response
+          headersSent: false,
         };
+
         await exports.endTrade({ params: { tradeId: newTrade._id } }, dummyRes);
       } catch (error) {
         console.error(`Error ending trade ${newTrade._id}:`, error);
       }
-    }, duration * 1000); // Convert duration to milliseconds
+    }, duration * 1000); // Duration in seconds
 
   } catch (error) {
-    console.error(error);
+    console.error('Error placing trade:', error);
     return res.status(500).json({ message: 'Error placing trade' });
   }
 };
+ 
 exports.getUserTradeHistory = async (req, res) => {
   try {
     const userId = req.user.id;  // Get user ID from the JWT token

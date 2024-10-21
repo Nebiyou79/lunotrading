@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { QRCodeCanvas } from 'qrcode.react'; // Assuming you're using qrcode.react for QR codes
-import { getDepositAddresses } from '../utils/depositService'; // Service to interact with the backend
+import { QRCodeCanvas } from 'qrcode.react';
+import { getDepositAddresses } from '../utils/depositService';
 import apiService from '../utils/fundsService';
 import { toast } from 'react-toastify';
 
@@ -36,7 +36,6 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
     };
     fetchAddresses();
   }, [token]);
-  
 
   const handleFileUpload = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -78,30 +77,36 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
       toast.error('Address not available to copy.');
       return;
     }
-    navigator.clipboard.writeText(address)
-      .then(() => {
-        setMessage('Address copied to clipboard.');
-        toast.success('Address copied to clipboard.');
-      })
-      .catch(() => {
-        setError('Failed to copy address.');
-        toast.error('Failed to copy address.');
-      });
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(address)
+        .then(() => {
+          setMessage('Address copied to clipboard.');
+          toast.success('Address copied to clipboard.');
+        })
+        .catch(() => {
+          setError('Failed to copy address.');
+          toast.error('Failed to copy address.');
+        });
+    } else {
+      setError('Clipboard functionality is not available in your environment.');
+      toast.error('Clipboard functionality is not available.');
+    }
   };
-  
 
   return (
     <>
       {showDepositModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl md:w-11/12">
             <h2 className="text-xl mb-4 text-center text-white">Deposit Addresses</h2>
-            <div className="flex justify-around space-x-4 mb-6">
+
+            {/* Deposit Options for Smaller Screens */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {/* ETH */}
               <div className="flex flex-col items-center">
                 <p>ETH</p>
                 <QRCodeCanvas value={addresses.ethAddress} />
-                <p className="break-all">{addresses.ethAddress}</p>
+                <p className="break-all text-sm md:text-base">{addresses.ethAddress}</p>
                 <button
                   className="mt-2 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
                   onClick={() => copyToClipboard(addresses.ethAddress)}
@@ -114,7 +119,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
               <div className="flex flex-col items-center">
                 <p>BTC</p>
                 <QRCodeCanvas value={addresses.btcAddress} />
-                <p className="break-all">{addresses.btcAddress}</p>
+                <p className="break-all text-sm md:text-base">{addresses.btcAddress}</p>
                 <button
                   className="mt-2 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
                   onClick={() => copyToClipboard(addresses.btcAddress)}
@@ -127,7 +132,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
               <div className="flex flex-col items-center">
                 <p>USDT:</p>
                 <QRCodeCanvas value={addresses.usdtAddress} />
-                <p className="break-all">{addresses.usdtAddress}</p>
+                <p className="break-all text-sm md:text-base">{addresses.usdtAddress}</p>
                 <button
                   className="mt-2 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
                   onClick={() => copyToClipboard(addresses.usdtAddress)}
@@ -175,14 +180,14 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
             {error && <p className="text-red-500">{error}</p>}
 
             <div className="flex justify-between">
-              <button 
+              <button
                 className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
                 onClick={handleDepositSubmit}
               >
                 Submit
               </button>
-              <button 
-                className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded" 
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
                 onClick={() => setShowDepositModal(false)}
               >
                 Close

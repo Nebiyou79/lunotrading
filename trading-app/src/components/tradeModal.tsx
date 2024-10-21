@@ -31,6 +31,7 @@ interface TradingModalProps {
 }
 
 const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amountBTCUSD, coinName,balance }) => {
+  const [newbalance, setNewBalance] = useState(balance);
   const [capital, setCapital] = useState<number>(100);
   const [returnRate, setReturnRate] = useState<number>(12);
   const [leverage, setLeverage] = useState<number>(1);
@@ -55,15 +56,20 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
         duration,     // Include duration in the request
         transactionFee,          
       };
-
-      await placeTrade(tradeData);
-        toast.success('Trade placed successfully!');
-        onRequestClose();  // Close modal on success
+  
+      const response = await placeTrade(tradeData);
+            if (response?.updatedBalance !== undefined) {
+        setNewBalance(response.updatedBalance); // Update the balance after trade
+      }
+  
+      toast.success('Trade placed successfully!');
+      onRequestClose();  // Close modal on success
     } catch (error) {
       console.error('Error placing trade:', error);
       toast.error('Insufficient balance!');
     }
   };
+  
 
   const returnRates = [
     { time: '30s', rate: 12, duration: 30, color: 'bg-blue-500' },
@@ -80,14 +86,15 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
       <p className="text-lg">Amount {coinName}: {amountBTCUSD}</p>
 
       <div className="mt-4">
-        <label className="block mb-2 text-lg">Capital (USDT):</label>
-        <input
-          type="number"
-          value={capital}
-          onChange={(e) => setCapital(Number(e.target.value))}
-          className="w-full p-2 text-black rounded"
-        />
-      </div>
+  <label className="block mb-2 text-lg">Capital (USDT):</label>
+  <input
+    type="number"
+    value={capital || ''} 
+    onChange={(e) => setCapital(e.target.value === '' ? 0 : Number(e.target.value))} 
+    className="w-full p-2 text-black rounded"
+  />
+</div>
+
 
       <div className="mt-4">
         <label className="block mb-2 text-lg">Return Rate:</label>
@@ -127,7 +134,7 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
       </svg>
       <span className="text-gray-300">Available Amount:</span>
     </div>
-    <span className="text-white font-bold">{balance} USDT</span>
+    <span className="text-white font-bold">{newbalance} USDT</span>
   </div>
 
   <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg shadow-lg">

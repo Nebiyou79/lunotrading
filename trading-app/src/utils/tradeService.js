@@ -50,15 +50,27 @@ export const decideTradeOutcome = async (tradeData) => {
   }
 };
 // Place trade service
+// Place trade service
 export const placeTrade = async (tradeData) => {
-  const token = localStorage.getItem('token');
-  const response = await axios.post(`${API_URL}/trade/place`, tradeData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('No token found, please log in again.');
+    const response = await axios.post(`${API_URL}/trade/place`, tradeData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error placing trade:', error);
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.message || 'Error placing trade.');
+    } else {
+      throw new Error('Network error, please try again later.');
+    }
+  }
 };
+
 
 // Get user trade history
 export const getUserTradeHistory = async () => {
