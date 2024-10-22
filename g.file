@@ -8,7 +8,7 @@
 │   ├── fundsController.js (Handles funds)
 │   ├── kycController.js (Handles kyc)
 │   ├── prices.js (Handles coin prices and charts)
-
+├──uploads
 │
 ├── models
 │   ├── User.js

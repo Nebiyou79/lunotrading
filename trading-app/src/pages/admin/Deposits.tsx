@@ -90,7 +90,7 @@ const Deposits = () => {
                         <ul>
                           <li>
                             <a
-                              href={`http://localhost:5000/${deposit.proofFilePath.replace(/\\/g, '/')}`}
+                              href={`https://lunotrading.com/${deposit.proofFilePath.replace(/\\/g, '/')}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:underline"

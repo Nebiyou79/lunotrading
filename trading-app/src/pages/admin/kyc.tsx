@@ -105,7 +105,7 @@ const KYCAdminPage: React.FC = () => {
                       {request.kycDocuments.map((doc, index) => (
                         <li key={index}>
                           <a
-                            href={`http://localhost:5000/${doc}`} 
+                            href={`https://lunotrading.com/${doc}`} 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="text-blue-500 hover:underline"
