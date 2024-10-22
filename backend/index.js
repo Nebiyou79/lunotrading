@@ -20,7 +20,7 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({ origin: 'http://116.203.108.180:3000' })); // Adjust if needed
+app.use(cors({ origin: 'https://lunotrading.com' })); // Adjust if needed
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());  // JSON parsing for incoming requests
 app.use(helmet());  // Security headers
