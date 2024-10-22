@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { getPendingDeposits, approveDeposit, rejectDeposit } from '../../utils/adminApiServices';
 import Sidebar from '../../components/admin/Sidebar'; // Assuming you have a Sidebar component
-import Image from 'next/image';
 import { toast } from 'react-toastify';
 
 const Deposits = () => {
@@ -17,11 +16,11 @@ const Deposits = () => {
       try {
         const data = await getPendingDeposits();
         setDeposits(data as any);
-        toast.success('Deposits fetched successfully')
+        toast.success('Deposits fetched successfully');
         setLoading(false);
       } catch (error: any) {
         setError('Failed to fetch pending deposits');
-        toast.error('Failed to fetch deposits')
+        toast.error('Failed to fetch deposits');
         setLoading(false);
       }
     };
@@ -87,16 +86,24 @@ const Deposits = () => {
                       {deposit.amount} {deposit.currency}
                     </td>
                     <td className="px-4 py-2">
-                      {deposit.proofFilePath && (
-                        <Image
-                          src={`http://localhost:5000/${deposit.proofFilePath.replace(/\\/g, '/')}`}
-                          alt="Proof of payment"
-                          width={100}
-                          height={100}
-                          className="rounded-lg"
-                        />
+                      {deposit.proofFilePath ? (
+                        <ul>
+                          <li>
+                            <a
+                              href={`http://localhost:5000/${deposit.proofFilePath.replace(/\\/g, '/')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:underline"
+                            >
+                              View Proof
+                            </a>
+                          </li>
+                        </ul>
+                      ) : (
+                        <span className="text-sm text-gray-500">No proof uploaded</span>
                       )}
                     </td>
+                    
                     <td className="px-4 py-2">
                       <button
                         onClick={() => handleApprove(deposit._id)}

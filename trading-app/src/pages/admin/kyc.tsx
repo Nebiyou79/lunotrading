@@ -5,7 +5,7 @@ import { getKYCRequests, approveKYC, rejectKYC } from '../../utils/kycService';
 import Sidebar from '@/components/admin/Sidebar';
 
 interface KYCRequest {
-  _id: string;
+  _id: string; 
   name: string;
   email: string;
   status: string;
