@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://116.203.108.180:5000/api/auth/'; // Adjust based on your backend URL
+const API_URL = 'https://lunotrading.com/api/auth/'; // Adjust based on your backend URL
 
 export const login = async (email, password) => {
   const response = await axios.post(`${API_URL}login`, { email, password });

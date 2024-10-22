@@ -4,7 +4,7 @@
 export const getUserProfile = async () => {
   try {
     const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    const response = await fetch('http://116.203.108.180:5000/api/profile', {
+    const response = await fetch('https://lunotrading.com/api/profile', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`, // Set the Authorization header

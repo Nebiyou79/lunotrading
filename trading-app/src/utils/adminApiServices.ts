@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://116.203.108.180:5000/api/admin';
+const API_URL = 'https://lunotrading.com/api/admin';
 const getToken = () => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('token');

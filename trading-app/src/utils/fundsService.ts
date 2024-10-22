@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://116.203.108.180:5000/api'; // Change to your actual API URL
+const API_URL = 'https://lunotrading.com/api'; // Change to your actual API URL
 
 const apiService = {
   getBalance: async (token: string) => {
