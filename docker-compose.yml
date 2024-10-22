@@ -2,7 +2,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     environment:
       - MONGODB_URI=mongodb+srv://oronamos4:Neba1234@cluster0.qkvsk.mongodb.net/
     depends_on:
@@ -11,7 +11,7 @@ services:
   frontend:
     build: ./trading-app
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     depends_on:
       - backend
 
