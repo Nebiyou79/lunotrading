@@ -47,6 +47,7 @@ const TradeHistory: React.FC = () => {
               <th className="p-4">Asset</th>
               <th className="p-4">Capital</th>
               <th className="p-4">Return Rate</th>
+              <th className="p-4">Leverage</th>
               <th className="p-4">Status</th>
               <th className="p-4">Profit/Loss</th>
               <th className="p-4">Time Left</th>
@@ -69,11 +70,12 @@ const TradeHistory: React.FC = () => {
                   <td className="p-4">{trade.assetId}</td>
                   <td className="p-4">{trade.capital} USDT</td>
                   <td className="p-4">{trade.returnRate}% USDT</td>
+                  <td className="p-4">{trade.leverage}x</td>
                   <td className="p-4">{trade.status}</td>
                   <td className={`p-4 font-semibold ${statusColor}`}>
                     {profitLoss >= 0 
                       ? `+${profitLoss.toFixed(2)} USDT` 
-                      : `-${profitLoss.toFixed(2)} USDT`}
+                      : `-${Math.abs(profitLoss).toFixed(2)} USDT`}
                   </td>
                   <td className="p-4">
                     {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}

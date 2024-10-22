@@ -93,53 +93,44 @@ const AdminTrades: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-  {trades.map((trade) => (
-    <tr key={trade._id} className="border-b hover:bg-gray-100">
-      <td className="py-2 px-4">
-        {trade.user && typeof trade.user === 'object' && '_id' in trade.user
-          ? users[trade.user._id] 
-            ? users[trade.user._id].name 
-            : 'Unknown User'
-          : trade.user && users[trade.user] 
-            ? users[trade.user].name 
-            : 'Unknown User'}
-      </td>
-      <td className="py-2 px-4">
-        {trade.user && typeof trade.user === 'object' && '_id' in trade.user
-          ? users[trade.user._id] 
-            ? users[trade.user._id].email 
-            : 'No Email'
-          : trade.user && users[trade.user] 
-            ? users[trade.user].email 
-            : 'No Email'}
-      </td>
-      <td className="py-2 px-4">{trade.assetId}</td>
-      <td className="py-2 px-4">{trade.capital}</td>
-      <td className="py-2 px-4">{trade.returnRate}</td>
-      <td className="py-2 px-4">{trade.leverage}</td>
-      <td className="py-2 px-4">{trade.status}</td>
-      <td className="py-2 px-4">
-        {trade.status === 'pending' && (
-          <>
-            <button
-              className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
-              onClick={() => handleDecideTrade(trade._id, 'win')}
-            >
-              Win
-            </button>
-            <button
-              className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 ml-2"
-              onClick={() => handleDecideTrade(trade._id, 'lose')}
-            >
-              Lose
-            </button>
-          </>
-        )}
-      </td>
-    </tr>
-  ))}
-</tbody>
-
+              {trades.map((trade) => (
+                <tr key={trade._id} className="border-b hover:bg-gray-100">
+                  <td className="py-2 px-4">
+                    {typeof trade.user === 'object' && '_id' in trade.user 
+                      ? (users[trade.user._id] ? users[trade.user._id].name : 'Unknown User') 
+                      : (users[trade.user] ? users[trade.user].name : 'Unknown User')}
+                  </td>
+                  <td className="py-2 px-4">
+                    {typeof trade.user === 'object' && '_id' in trade.user 
+                      ? (users[trade.user._id] ? users[trade.user._id].email : 'No Email') 
+                      : (users[trade.user] ? users[trade.user].email : 'No Email')}
+                  </td>
+                  <td className="py-2 px-4">{trade.assetId}</td>
+                  <td className="py-2 px-4">{trade.capital}</td>
+                  <td className="py-2 px-4">{trade.returnRate}</td>
+                  <td className="py-2 px-4">{trade.leverage}</td>
+                  <td className="py-2 px-4">{trade.status}</td>
+                  <td className="py-2 px-4">
+                    {trade.status === 'pending' && (
+                      <>
+                        <button
+                          className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                          onClick={() => handleDecideTrade(trade._id, 'win')}
+                        >
+                          Win
+                        </button>
+                        <button
+                          className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 ml-2"
+                          onClick={() => handleDecideTrade(trade._id, 'lose')}
+                        >
+                          Lose
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
