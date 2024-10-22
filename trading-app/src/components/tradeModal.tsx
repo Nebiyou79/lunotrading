@@ -34,17 +34,16 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
   const [newbalance, setNewBalance] = useState(balance);
   const [capital, setCapital] = useState<number>(100);
   const [returnRate, setReturnRate] = useState<number>(12);
-  const [leverage, setLeverage] = useState<number>(1);
   const [expectedReturn, setExpectedReturn] = useState<number>(0);
   const [transactionFee, setTransactionFee] = useState<number>(0);
   const [duration, setDuration] = useState<number>(30);
 
   useEffect(() => {
-    const returnAmount = (capital * returnRate * leverage) / 100;
+    const returnAmount = (capital * returnRate) / 100;
     const fee = capital * 0.02;
     setExpectedReturn(returnAmount);
     setTransactionFee(fee);
-  }, [capital, returnRate, leverage]);
+  }, [capital, returnRate]);
 
   const handleConfirmTrade = async () => {
     try {
@@ -52,7 +51,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
         assetId: coinName,    // Pass the coin name as assetId
         capital,
         returnRate,
-        leverage,
         duration,     // Include duration in the request
         transactionFee,          
       };
@@ -94,8 +92,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
     className="w-full p-2 text-black rounded"
   />
 </div>
-
-
       <div className="mt-4">
         <label className="block mb-2 text-lg">Return Rate:</label>
         <div className="grid grid-cols-3 gap-2">
@@ -113,19 +109,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
           ))}
         </div>
       </div>
-
-      <div className="mt-4">
-        <label className="block mb-2 text-lg">Leverage:</label>
-        <input
-          type="number"
-          value={leverage}
-          onChange={(e) => setLeverage(Number(e.target.value))}
-          className="w-full p-2 text-black rounded"
-          min={1}
-          max={5}
-        />
-      </div>
-
       <div className="mt-6 text-lg grid grid-cols-1 gap-4">
   <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg shadow-lg">
     <div className="flex items-center">
