@@ -63,24 +63,30 @@ const TradeHistory: React.FC = () => {
             <tbody className="bg-gray-700 divide-y divide-gray-600">
               {trades.map((trade: Trade) => {
                 const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
+
                 const statusColor = trade.status === 'win'
                   ? 'text-green-500'
                   : trade.status === 'lose'
                   ? 'text-red-500'
                   : 'text-gray-500';
-                const profitLoss = trade.status === 'pending' ? 0 : trade.resultAmount;
+
+                // Ensure resultAmount is handled correctly with + or - sign
+                const profitLossAmount = trade.resultAmount || 0;
+                const profitLoss = trade.status === 'win'
+                  ? `+${profitLossAmount.toFixed(2)}`
+                  : trade.status === 'lose'
+                  ? `-${Math.abs(profitLossAmount).toFixed(2)}`
+                  : '0.00'; // Default for pending or other status
 
                 return (
                   <tr key={trade._id}>
                     <td className="p-4">{trade.assetId}</td>
                     <td className="p-4">{trade.capital} USDT</td>
-                    <td className="p-4">{trade.returnRate}% USDT</td>
+                    <td className="p-4">{trade.returnRate}%</td>
                     <td className="p-4">{trade.leverage}x</td>
                     <td className="p-4">{trade.status}</td>
                     <td className={`p-4 font-semibold ${statusColor}`}>
-                      {profitLoss >= 0
-                        ? `+${profitLoss.toFixed(2)} USDT`
-                        : `-${Math.abs(profitLoss).toFixed(2)} USDT`}
+                      {profitLoss} USDT
                     </td>
                     <td className="p-4">
                       {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
