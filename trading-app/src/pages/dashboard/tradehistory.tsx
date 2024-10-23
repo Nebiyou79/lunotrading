@@ -22,7 +22,6 @@ const TradeHistory: React.FC = () => {
       try {
         const tradeHistory = await getUserTradeHistory();
 
-        // Ensure we only set valid trade objects and filter out any null or undefined values
         if (Array.isArray(tradeHistory)) {
           setTrades(tradeHistory.filter((trade) => trade && trade._id));
         } else {
@@ -45,57 +44,57 @@ const TradeHistory: React.FC = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-900 p-8 rounded-xl shadow-lg space-y-6 text-white">
-        <h2 className="text-3xl font-bold mb-6 text-blue-500">Trade History</h2>
+      <div className="bg-gray-900 p-4 rounded-xl shadow-lg space-y-4 text-white">
+        <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
+
         {trades.length > 0 ? (
-          <table className="min-w-full text-center text-gray-300">
-            <thead className="bg-gray-800">
-              <tr>
-                <th className="p-4">Asset</th>
-                <th className="p-4">Capital</th>
-                <th className="p-4">Return Rate</th>
-                <th className="p-4">Leverage</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Profit/Loss</th>
-                <th className="p-4">Time Left</th>
-              </tr>
-            </thead>
-            <tbody className="bg-gray-700 divide-y divide-gray-600">
-              {trades.map((trade: Trade) => {
-                const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-center text-gray-300 table-auto">
+              <thead className="bg-gray-800">
+                <tr>
+                  <th className="p-3 w-24">Asset</th>
+                  <th className="p-3 w-24">Capital</th>
+                  <th className="p-3 w-24">Return Rate</th>
+                  <th className="p-3 w-24">Leverage</th>
+                  <th className="p-3 w-24">Status</th>
+                  <th className="p-3 w-24">Profit/Loss</th>
+                  <th className="p-3 w-24">Time Left</th>
+                </tr>
+              </thead>
+              <tbody className="bg-gray-700 divide-y divide-gray-600">
+                {trades.map((trade: Trade) => {
+                  const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
 
-                const statusColor = trade.status === 'win'
-                  ? 'text-green-500'
-                  : trade.status === 'lose'
-                  ? 'text-red-500'
-                  : 'text-gray-500';
+                  const statusColor =
+                    trade.status === 'win'
+                      ? 'text-green-500'
+                      : trade.status === 'lose'
+                      ? 'text-red-500'
+                      : 'text-gray-500';
 
-                // Ensure resultAmount is handled correctly with + or - sign
-                const profitLossAmount = trade.resultAmount || 0;
-                const profitLoss = trade.status === 'win'
-                  ? `+${profitLossAmount.toFixed(2)}`
-                  : trade.status === 'lose'
-                  ? `-${Math.abs(profitLossAmount).toFixed(2)}`
-                  : '0.00'; // Default for pending or other status
+                  const profitLossAmount = trade.resultAmount || 0;
+                  const profitLoss =
+                    trade.status === 'win'
+                      ? `+${profitLossAmount.toFixed(2)}`
+                      : trade.status === 'lose'
+                      ? `-${Math.abs(profitLossAmount).toFixed(2)}`
+                      : '0.00'; // Default for pending or other status
 
-                return (
-                  <tr key={trade._id}>
-                    <td className="p-4">{trade.assetId}</td>
-                    <td className="p-4">{trade.capital} USDT</td>
-                    <td className="p-4">{trade.returnRate}%</td>
-                    <td className="p-4">{trade.leverage}x</td>
-                    <td className="p-4">{trade.status}</td>
-                    <td className={`p-4 font-semibold ${statusColor}`}>
-                      {profitLoss} USDT
-                    </td>
-                    <td className="p-4">
-                      {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                  return (
+                    <tr key={trade._id}>
+                      <td className="p-3">{trade.assetId}</td>
+                      <td className="p-3">{trade.capital} USDT</td>
+                      <td className="p-3">{trade.returnRate}%</td>
+                      <td className="p-3">{trade.leverage}x</td>
+                      <td className="p-3">{trade.status}</td>
+                      <td className={`p-3 font-semibold ${statusColor}`}>{profitLoss} USDT</td>
+                      <td className="p-3">{remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <p>No trade history available.</p>
         )}
