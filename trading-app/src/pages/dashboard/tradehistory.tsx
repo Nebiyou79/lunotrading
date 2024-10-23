@@ -47,18 +47,19 @@ const TradeHistory: React.FC = () => {
       <div className="bg-gray-900 p-4 rounded-xl shadow-lg space-y-4 text-white">
         <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
 
+        {/* Wrapping the table inside a scrollable div */}
         {trades.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-center text-gray-300 table-auto">
+          <div className="overflow-x-auto max-w-full">
+            <table className="table-auto w-full text-center text-gray-300">
               <thead className="bg-gray-800">
                 <tr>
-                  <th className="p-3 w-24">Asset</th>
-                  <th className="p-3 w-24">Capital</th>
-                  <th className="p-3 w-24">Return Rate</th>
-                  <th className="p-3 w-24">Leverage</th>
-                  <th className="p-3 w-24">Status</th>
-                  <th className="p-3 w-24">Profit/Loss</th>
-                  <th className="p-3 w-24">Time Left</th>
+                  <th className="p-3">Asset</th>
+                  <th className="p-3">Capital</th>
+                  <th className="p-3">Return Rate</th>
+                  <th className="p-3">Leverage</th>
+                  <th className="p-3">Status</th>
+                  <th className="p-3">Profit/Loss</th>
+                  <th className="p-3">Time Left</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-700 divide-y divide-gray-600">
@@ -78,7 +79,7 @@ const TradeHistory: React.FC = () => {
                       ? `+${profitLossAmount.toFixed(2)}`
                       : trade.status === 'lose'
                       ? `-${Math.abs(profitLossAmount).toFixed(2)}`
-                      : '0.00'; // Default for pending or other status
+                      : '0.00';
 
                   return (
                     <tr key={trade._id}>
