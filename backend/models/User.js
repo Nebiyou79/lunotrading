@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
   balance: { type: Number, default: 0 },
   kycDocuments: { type: Array, default: [] }, // Array to store KYC documents
-  kycStatus: { type: String, enum: ['pending', 'approved', 'rejected', 'verified'], default: 'pending' },// KYC status
+  kycStatus: { type: String, enum: ['pending', 'accepted', 'rejected', 'verified'], default: 'pending' },// KYC status
   autoMode: {
     type: String,
     enum: ['alwaysWin', 'alwaysLose', 'off'],  // Modes for automatic results
