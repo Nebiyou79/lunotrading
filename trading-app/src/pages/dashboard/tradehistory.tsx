@@ -44,12 +44,12 @@ const TradeHistory: React.FC = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-900 p-4 rounded-xl shadow-lg space-y-4 text-white">
+      <div className="bg-gray-900 p-4 rounded-xl shadow-lg space-y-4 text-white max-w-full overflow-auto">
         <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
 
         {/* Wrapping the table inside a scrollable div */}
         {trades.length > 0 ? (
-          <div className="overflow-x-auto max-w-full">
+          <div className="overflow-auto w-full"> {/* Ensure the table container is scrollable */}
             <table className="table-auto w-full text-center text-gray-300">
               <thead className="bg-gray-800">
                 <tr>
