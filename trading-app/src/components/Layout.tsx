@@ -10,9 +10,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <NavBar />
 
       {/* Main content with sidebars */}
-      <div className="flex flex-1 flex-col md:flex-row">
+      <div className="flex flex-1">
         {/* Left Sidebar */}
-        <aside className="w-full md:w-64 bg-gray-700 p-4 text-white">
+        <aside className="md:w-64 bg-gray-700">
           <Sidebar />
         </aside>
 
