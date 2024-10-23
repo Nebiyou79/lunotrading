@@ -149,7 +149,7 @@ const Markets = () => {
                                     <span className="text-white font-semibold">{coin.name} ({coin.symbol.toUpperCase()})</span>
                                 </div>
                                 <span className="text-white">${coin.current_price.toLocaleString()}</span>
-                                <span className=" block md:hidden text-white">${coin.market_cap.toLocaleString()}</span>
+                                <span className="hidden md:block text-white">${coin.market_cap.toLocaleString()}</span>
                                 <button 
                                     className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     onClick={() => toggleDropdown(coin.id)}

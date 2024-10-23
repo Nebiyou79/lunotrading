@@ -44,22 +44,22 @@ const TradeHistory: React.FC = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-900 p-4 rounded-xl shadow-lg space-y-4 text-white max-w-full overflow-auto">
+      <div className="bg-gray-900 p-4 rounded-xl shadow-lg text-white max-w-full overflow-auto">
         <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
 
         {/* Wrapping the table inside a scrollable div */}
         {trades.length > 0 ? (
-          <div className="overflow-auto w-full"> {/* Ensure the table container is scrollable */}
-            <table className="table-auto w-full text-center text-gray-300">
+          <div className="overflow-x-auto w-full"> {/* Ensure the table container is scrollable */}
+            <table className="table-fixed min-w-full text-center text-gray-300"> {/* Fixed layout for better control */}
               <thead className="bg-gray-800">
                 <tr>
-                  <th className="p-3">Asset</th>
-                  <th className="p-3">Capital</th>
-                  <th className="p-3">Return Rate</th>
-                  <th className="p-3">Leverage</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Profit/Loss</th>
-                  <th className="p-3">Time Left</th>
+                  <th className="p-3 w-1/6">Asset</th>
+                  <th className="p-3 w-1/6">Capital</th>
+                  <th className="p-3 w-1/6">Return Rate</th>
+                  <th className="p-3 w-1/6">Leverage</th>
+                  <th className="p-3 w-1/6">Status</th>
+                  <th className="p-3 w-1/6">Profit/Loss</th>
+                  <th className="p-3 w-1/6">Time Left</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-700 divide-y divide-gray-600">
