@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -29,26 +30,23 @@ const Register = () => {
 
       if (res.status === 201) {
         toast.success('SIGN UP successful');
-        // Redirect to login after successful registration
         router.push('/login');
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
-        toast.error(err.response.data.message)
+        toast.error(err.response.data.message);
       } else {
-        setError('An unexpected error occurred.');
-        toast.error('An unexpected error occurred')
+        toast.error('An unexpected error occurred.');
       }
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 relative">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 relative">
       <div className="absolute inset-0 overflow-hidden">
         <Image
-          src="/images/logo.png" // Replace with your background image path
+          src="/images/logo.png"
           alt="Background"
           layout="fill"
           objectFit="cover"
@@ -56,14 +54,16 @@ const Register = () => {
         />
       </div>
 
-      <div className="flex max-w-6xl w-full rounded-lg shadow-lg overflow-hidden bg-black relative z-10">
-        <div className="w-1/2 p-10 flex flex-col justify-center items-center bg-gray-700">
+      <div className="flex flex-col md:flex-row max-w-6xl w-full rounded-lg shadow-lg overflow-hidden bg-black relative z-10 p-5 md:p-0">
+        {/* Left side: Logo and Name */}
+        <div className="w-full md:w-1/2 p-5 flex flex-col justify-center items-center bg-gray-700">
           <Image src="/images/logo.png" alt="Bane View Logo" width={80} height={80} />
-          <h1 className="text-5xl font-extrabold text-blue-600 mt-4">BANE VIEW</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-blue-600 mt-4">BANE VIEW</h1>
           <h2 className="text-lg text-white mt-2">Your Trusted Trading Platform</h2>
         </div>
 
-        <div className="w-1/2 p-10">
+        {/* Right side: Register Form */}
+        <div className="w-full md:w-1/2 p-5 md:p-10">
           <div className="max-w-sm mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-blue-600 mb-2">Register</h2>
@@ -84,6 +84,7 @@ const Register = () => {
                   required
                 />
               </div>
+
               <div className="mb-4">
                 <label className="block text-left text-gray-700 mb-2 text-sm">Email Address</label>
                 <input
@@ -128,7 +129,7 @@ const Register = () => {
               </button>
             </form>
 
-            <div className="flex justify-between items-center mt-6">
+            <div className="flex justify-center items-center mt-6">
               <Link className="text-blue-600 text-sm hover:underline" href="/login">
                 Already have an account? Login
               </Link>
