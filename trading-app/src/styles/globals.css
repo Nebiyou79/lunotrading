@@ -26,3 +26,13 @@ body {
     text-wrap: balance;
   }
 }
+.table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.table-container table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: auto; /* Forces it to resize dynamically */
+}

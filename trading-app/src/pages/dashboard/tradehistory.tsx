@@ -50,16 +50,16 @@ const TradeHistory: React.FC = () => {
         {/* Wrapping the table inside a scrollable div */}
         {trades.length > 0 ? (
           <div className="overflow-x-auto w-full"> {/* Scrollable container */}
-  <table className="table-auto min-w-full text-center text-gray-300"> {/* Fixed layout for better control */}
+            <table className="table-auto w-full max-w-full text-center text-gray-300"> {/* Fixed layout for better control */}
               <thead className="bg-gray-800">
                 <tr>
-                  <th className="p-3 w-1/6">Asset</th>
-                  <th className="p-3 w-1/6">Capital</th>
-                  <th className="p-3 w-1/6">Return Rate</th>
-                  <th className="p-3 w-1/6">Leverage</th>
-                  <th className="p-3 w-1/6">Status</th>
-                  <th className="p-3 w-1/6">Profit/Loss</th>
-                  <th className="p-3 w-1/6">Time Left</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Asset</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Capital</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Return Rate</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Leverage</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Status</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Profit/Loss</th>
+                  <th className="p-3 sm:w-1/2 lg:w-1/6">Time Left</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-700 divide-y divide-gray-600">
@@ -83,13 +83,13 @@ const TradeHistory: React.FC = () => {
 
                   return (
                     <tr key={trade._id}>
-                      <td className="p-3">{trade.assetId}</td>
-                      <td className="p-3">{trade.capital} USDT</td>
-                      <td className="p-3">{trade.returnRate}%</td>
-                      <td className="p-3">{trade.leverage}x</td>
-                      <td className="p-3">{trade.status}</td>
-                      <td className={`p-3 font-semibold ${statusColor}`}>{profitLoss} USDT</td>
-                      <td className="p-3">{remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}</td>
+                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.assetId}</td>
+                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.capital} USDT</td>
+                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.returnRate}%</td>
+                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.leverage}x</td>
+                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.status}</td>
+                      <td className={`p-3 sm:w-1/2 lg:w-1/6 font-semibold ${statusColor}`}>{profitLoss} USDT</td>
+                      <td className="p-3 sm:w-1/2 lg:w-1/6">{remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}</td>
                     </tr>
                   );
                 })}
