@@ -25,26 +25,26 @@ const Sidebar = () => {
       </div>
 
       {/* Desktop View (Full Sidebar) */}
-      <div className="hidden md:flex flex-col items-center p-6 bg-gradient-to-b from-blue-900 to-gray-900 min-h-screen w-20">
-        <Link href="/dashboard">
-          <FaUser className="text-white text-3xl mb-6 hover:text-blue-400 transition" />
-          <h1>User Profile</h1>
+      <div className="hidden md:flex flex-col p-6 bg-gradient-to-b from-blue-900 to-gray-900 min-h-screen w-40">
+        <Link href="/dashboard" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaUser className="text-white text-3xl mr-3" />
+          <span className="text-white">User Profile</span>
         </Link>
-        <Link href="/dashboard/kyc">
-          <FaIdCard className="text-white text-3xl mb-6 hover:text-blue-400 transition" />
-          <h1>KYC Verification</h1>
+        <Link href="/dashboard/kyc" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaIdCard className="text-white text-3xl mr-3" />
+          <span className="text-white">KYC Verification</span>
         </Link>
-        <Link href="/dashboard/updateProfile">
-          <FaEdit className="text-white text-3xl mb-6 hover:text-blue-400 transition" />
-          <h1>Update Profile</h1>
+        <Link href="/dashboard/updateProfile" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaEdit className="text-white text-3xl mr-3" />
+          <span className="text-white">Update Profile</span>
         </Link>
-        <Link href="/dashboard/tradehistory">
-          <FaHistory className="text-white text-3xl mb-6 hover:text-blue-400 transition" />
-          <h1>Trade History</h1>
+        <Link href="/dashboard/tradehistory" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaHistory className="text-white text-3xl mr-3" />
+          <span className="text-white">Trade History</span>
         </Link>
-        <Link href="/dashboard/customerSupport">
-          <FaHeadset className="text-white text-3xl hover:text-blue-400 transition" />
-          <h1>Customer Support</h1>
+        <Link href="/dashboard/customerSupport" className="flex items-center hover:text-blue-400 transition">
+          <FaHeadset className="text-white text-3xl mr-3" />
+          <span className="text-white">Customer Support</span>
         </Link>
       </div>
     </div>
