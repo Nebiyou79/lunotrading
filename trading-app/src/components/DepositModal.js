@@ -97,18 +97,18 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
     <>
       {showDepositModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl md:w-11/12">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl md:w-11/12 mt-16"> {/* Added margin-top */}
             <h2 className="text-xl mb-4 text-center text-white">Deposit Addresses</h2>
 
             {/* Deposit Options for Smaller Screens */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-6"> {/* Reduced gap */}
               {/* ETH */}
               <div className="flex flex-col items-center">
-                <p>ETH</p>
+                <p className="text-lg text-white">ETH</p>
                 <QRCodeCanvas value={addresses.ethAddress} />
-                <p className="break-all text-sm md:text-base">{addresses.ethAddress}</p>
+                <p className="break-all text-sm md:text-base text-white">{addresses.ethAddress}</p>
                 <button
-                  className="mt-2 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
+                  className="mt-1 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
                   onClick={() => copyToClipboard(addresses.ethAddress)}
                 >
                   Copy Address
@@ -117,11 +117,11 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
 
               {/* BTC */}
               <div className="flex flex-col items-center">
-                <p>BTC</p>
+                <p className="text-lg text-white">BTC</p>
                 <QRCodeCanvas value={addresses.btcAddress} />
-                <p className="break-all text-sm md:text-base">{addresses.btcAddress}</p>
+                <p className="break-all text-sm md:text-base text-white">{addresses.btcAddress}</p>
                 <button
-                  className="mt-2 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
+                  className="mt-1 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
                   onClick={() => copyToClipboard(addresses.btcAddress)}
                 >
                   Copy Address
@@ -130,11 +130,11 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
 
               {/* USDT */}
               <div className="flex flex-col items-center">
-                <p>USDT:</p>
+                <p className="text-lg text-white">USDT</p>
                 <QRCodeCanvas value={addresses.usdtAddress} />
-                <p className="break-all text-sm md:text-base">{addresses.usdtAddress}</p>
+                <p className="break-all text-sm md:text-base text-white">{addresses.usdtAddress}</p>
                 <button
-                  className="mt-2 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
+                  className="mt-1 bg-gray-700 hover:bg-gray-600 text-white py-1 px-2 rounded"
                   onClick={() => copyToClipboard(addresses.usdtAddress)}
                 >
                   Copy Address
@@ -179,7 +179,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
             {message && <p className="text-green-500">{message}</p>}
             {error && <p className="text-red-500">{error}</p>}
 
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-4">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
                 onClick={handleDepositSubmit}
