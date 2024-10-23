@@ -44,57 +44,59 @@ const TradeHistory: React.FC = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-900 p-4 rounded-xl shadow-lg text-white w-full overflow-x-auto">
-      <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
+      <div className="bg-gray-900 p-4 rounded-xl shadow-lg text-white w-full">
+        <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
 
-        {/* Wrapping the table inside a scrollable div */}
+        {/* Wrapping the trades inside a scrollable div */}
         {trades.length > 0 ? (
-          <div className="overflow-x-auto w-full"> {/* Scrollable container */}
-            <table className="table-auto w-full max-w-full text-center text-gray-300"> {/* Fixed layout for better control */}
-              <thead className="bg-gray-800">
-                <tr>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Asset</th>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Capital</th>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Return Rate</th>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Leverage</th>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Status</th>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Profit/Loss</th>
-                  <th className="p-3 sm:w-1/2 lg:w-1/6">Time Left</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-700 divide-y divide-gray-600">
-                {trades.map((trade: Trade) => {
-                  const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
+          <div className="w-full flex flex-col space-y-4">
+            {trades.map((trade: Trade) => {
+              const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
 
-                  const statusColor =
-                    trade.status === 'win'
-                      ? 'text-green-500'
-                      : trade.status === 'lose'
-                      ? 'text-red-500'
-                      : 'text-gray-500';
+              const statusColor =
+                trade.status === 'win'
+                  ? 'text-green-500'
+                  : trade.status === 'lose'
+                  ? 'text-red-500'
+                  : 'text-gray-500';
 
-                  const profitLossAmount = trade.resultAmount || 0;
-                  const profitLoss =
-                    trade.status === 'win'
-                      ? `+${profitLossAmount.toFixed(2)}`
-                      : trade.status === 'lose'
-                      ? `-${Math.abs(profitLossAmount).toFixed(2)}`
-                      : '0.00';
+              const profitLossAmount = trade.resultAmount || 0;
+              const profitLoss =
+                trade.status === 'win'
+                  ? `+${profitLossAmount.toFixed(2)}`
+                  : trade.status === 'lose'
+                  ? `-${Math.abs(profitLossAmount).toFixed(2)}`
+                  : '0.00';
 
-                  return (
-                    <tr key={trade._id}>
-                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.assetId}</td>
-                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.capital} USDT</td>
-                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.returnRate}%</td>
-                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.leverage}x</td>
-                      <td className="p-3 sm:w-1/2 lg:w-1/6">{trade.status}</td>
-                      <td className={`p-3 sm:w-1/2 lg:w-1/6 font-semibold ${statusColor}`}>{profitLoss} USDT</td>
-                      <td className="p-3 sm:w-1/2 lg:w-1/6">{remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+              return (
+                <div
+                  key={trade._id}
+                  className="flex flex-wrap bg-gray-800 p-4 rounded-lg space-y-2 sm:space-y-0 justify-between items-center text-center"
+                >
+                  <div className="flex-1 sm:w-1/6">
+                    <span className="font-semibold">Asset:</span> {trade.assetId}
+                  </div>
+                  <div className="flex-1 sm:w-1/6">
+                    <span className="font-semibold">Capital:</span> {trade.capital} USDT
+                  </div>
+                  <div className="flex-1 sm:w-1/6">
+                    <span className="font-semibold">Return Rate:</span> {trade.returnRate}%
+                  </div>
+                  <div className="flex-1 sm:w-1/6">
+                    <span className="font-semibold">Leverage:</span> {trade.leverage}x
+                  </div>
+                  <div className="flex-1 sm:w-1/6">
+                    <span className="font-semibold">Status:</span> {trade.status}
+                  </div>
+                  <div className={`flex-1 sm:w-1/6 font-semibold ${statusColor}`}>
+                    <span className="font-semibold">Profit/Loss:</span> {profitLoss} USDT
+                  </div>
+                  <div className="flex-1 sm:w-1/6">
+                    <span className="font-semibold">Time Left:</span> {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <p>No trade history available.</p>
