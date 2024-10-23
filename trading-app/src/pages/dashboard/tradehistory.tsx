@@ -49,8 +49,8 @@ const TradeHistory: React.FC = () => {
 
         {/* Wrapping the table inside a scrollable div */}
         {trades.length > 0 ? (
-          <div className="overflow-x-auto w-full"> {/* Ensure the table container is scrollable */}
-            <table className="table-fixed min-w-full text-center text-gray-300"> {/* Fixed layout for better control */}
+          <div className="overflow-x-auto w-full"> {/* Scrollable container */}
+  <table className="table-auto min-w-full text-center text-gray-300"> {/* Fixed layout for better control */}
               <thead className="bg-gray-800">
                 <tr>
                   <th className="p-3 w-1/6">Asset</th>
