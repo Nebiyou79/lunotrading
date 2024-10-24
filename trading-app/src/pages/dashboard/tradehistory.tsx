@@ -45,9 +45,8 @@ const TradeHistory: React.FC = () => {
   return (
     <Layout>
       <div className="bg-gray-900 p-4 rounded-xl shadow-lg text-white w-full">
-        <h2 className="text-2xl font-bold mb-4 text-blue-500">Trade History</h2>
+        <h2 className="text-2xl font-bold mb-6 text-blue-500 text-center">Trade History</h2>
 
-        {/* Wrapping the trades inside a scrollable div */}
         {trades.length > 0 ? (
           <div className="w-full flex flex-col space-y-4">
             {trades.map((trade: Trade) => {
@@ -71,35 +70,42 @@ const TradeHistory: React.FC = () => {
               return (
                 <div
                   key={trade._id}
-                  className="flex flex-wrap bg-gray-800 p-4 rounded-lg space-y-2 sm:space-y-0 justify-between items-center text-center"
+                  className="flex flex-wrap bg-gradient-to-r from-gray-800 to-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out"
                 >
-                  <div className="flex-1 sm:w-1/6">
-                    <span className="font-semibold">Asset:</span> {trade.assetId}
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Asset</span>
+                    <span className="text-lg">{trade.assetId}</span>
                   </div>
-                  <div className="flex-1 sm:w-1/6">
-                    <span className="font-semibold">Capital:</span> {trade.capital} USDT
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Capital</span>
+                    <span className="text-lg">{trade.capital} USDT</span>
                   </div>
-                  <div className="flex-1 sm:w-1/6">
-                    <span className="font-semibold">Return Rate:</span> {trade.returnRate}%
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Return Rate</span>
+                    <span className="text-lg">{trade.returnRate}%</span>
                   </div>
-                  <div className="flex-1 sm:w-1/6">
-                    <span className="font-semibold">Leverage:</span> {trade.leverage}x
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Leverage</span>
+                    <span className="text-lg">{trade.leverage}x</span>
                   </div>
-                  <div className="flex-1 sm:w-1/6">
-                    <span className="font-semibold">Status:</span> {trade.status}
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Status</span>
+                    <span className={`text-lg ${statusColor}`}>{trade.status}</span>
                   </div>
-                  <div className={`flex-1 sm:w-1/6 font-semibold ${statusColor}`}>
-                    <span className="font-semibold">Profit/Loss:</span> {profitLoss} USDT
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Profit/Loss</span>
+                    <span className={`text-lg font-bold ${statusColor}`}>{profitLoss} USDT</span>
                   </div>
-                  <div className="flex-1 sm:w-1/6">
-                    <span className="font-semibold">Time Left:</span> {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
+                  <div className="flex-1 sm:w-1/6 text-left">
+                    <span className="block font-semibold text-gray-300 mb-1">Time Left</span>
+                    <span className="text-lg">{remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}</span>
                   </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <p>No trade history available.</p>
+          <p className="text-center">No trade history available.</p>
         )}
       </div>
     </Layout>

@@ -37,32 +37,32 @@ const NavBar = () => {
         </div>
 
         {/* Navigation Links */}
-        <ul className={`md:flex space-x-6 ${isOpen ? 'block' : 'hidden'} md:block`}>
-          <li>
+        <ul className={`md:flex md:space-x-6 ${isOpen ? 'block' : 'hidden'} md:block`}>
+          <li className="md:inline-block">
             <Link href="/" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
               Home
             </Link>
           </li>
-          <li>
+          <li className="md:inline-block">
             <Link href="/markets" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
               Markets
             </Link>
           </li>
           {loggedIn ? (
             <>
-              <li>
+              <li className="md:inline-block">
                 <Link href="/dashboard" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
                   My Profile
                 </Link>
               </li>
               {role === 'admin' && (
-                <li>
+                <li className="md:inline-block">
                   <Link href="/admin" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
                     Admin
                   </Link>
                 </li>
               )}
-              <li>
+              <li className="md:inline-block">
                 <button 
                   onClick={handleLogout} 
                   className="text-white bg-red-600 px-4 py-2 rounded-md hover:bg-red-700 transition-all duration-300">
@@ -71,7 +71,7 @@ const NavBar = () => {
               </li>
             </>
           ) : (
-            <li>
+            <li className="md:inline-block">
               <Link href="/login" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
                 Login
               </Link>
@@ -79,6 +79,40 @@ const NavBar = () => {
           )}
         </ul>
       </div>
+
+      {/* Mobile Menu Items */}
+      {isOpen && (
+        <div className="md:hidden mt-4 space-y-2">
+          <Link href="/" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+            Home
+          </Link>
+          <Link href="/markets" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+            Markets
+          </Link>
+          {loggedIn && (
+            <>
+              <Link href="/dashboard" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+                My Profile
+              </Link>
+              {role === 'admin' && (
+                <Link href="/admin" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+                  Admin
+                </Link>
+              )}
+              <button 
+                onClick={handleLogout} 
+                className="block w-full text-white font-semibold py-4 px-6 bg-red-600 hover:bg-red-700 transition-all duration-300 rounded-md text-center">
+                Logout
+              </button>
+            </>
+          )}
+          {!loggedIn && (
+            <Link href="/login" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+              Login
+            </Link>
+          )}
+        </div>
+      )}
     </nav>
   );
 };
