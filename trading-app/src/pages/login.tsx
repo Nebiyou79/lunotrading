@@ -54,8 +54,8 @@ const Login = () => {
         
         {/* Left side: Logo and Name */}
         <div className="w-full md:w-1/2 p-5 flex flex-col justify-center items-center bg-gray-700">
-          <Image src="/images/logo.png" alt="Bane View Logo" width={80} height={80} />
-          <h1 className="text-3xl md:text-5xl font-extrabold text-blue-600 mt-4">BANE VIEW</h1>
+          <Image src="/images/logo.png" alt="Luno Trading Logo" width={80} height={80} />
+          <h1 className="text-3xl md:text-5xl font-extrabold text-blue-600 mt-4">Luno Trading</h1>
           <h2 className="text-lg text-white mt-2">Your Trusted Trading Platform</h2>
         </div>
 
