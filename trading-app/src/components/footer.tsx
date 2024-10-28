@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-white py-8">
       <div className="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
@@ -14,19 +14,25 @@ const Footer = () => {
 
         {/* Navigation Links */}
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 text-center">
-          <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
-            Privacy Policy
+          <Link href="/privacy-policy">
+            <a className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
+              Privacy Policy
+            </a>
           </Link>
-          <Link to="/terms-of-service" className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
-            Terms of Service
+          <Link href="/terms-of-service">
+            <a className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
+              Terms of Service
+            </a>
           </Link>
-          <Link to="/contact" className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
-            Contact Us
+          <Link href="/contact">
+            <a className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
+              Contact Us
+            </a>
           </Link>
         </div>
 
         {/* Copyright */}
-        <p className="text-sm text-center mt-4 md:mt-0">&copy; 2019 Luno Trading. All rights reserved.</p>
+        <p className="text-sm text-center mt-4 md:mt-0">&copy; 2024 Luno Trading. All rights reserved.</p>
       </div>
     </footer>
   );
