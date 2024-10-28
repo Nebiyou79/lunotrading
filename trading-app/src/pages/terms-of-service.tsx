@@ -1,10 +1,12 @@
 // TermsOfService.tsx
+import NavBar from "@/components/navbar";
 import React from "react";
 
 const TermsOfService: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto p-8 text-gray-700">
-      <h1 className="text-4xl font-semibold mb-4 text-center text-gray-900">Terms of Service</h1>
+    <div className="max-w-4xl mx-auto p-8 text-white">
+      <NavBar/>
+      <h1 className="text-4xl font-semibold mb-4 text-center text-white">Terms of Service</h1>
       
       <p className="mb-4">
         Welcome to <span className="font-bold">Luno Trading</span>. By accessing or using our website and services, you agree to be bound by these Terms of Service. Please read them carefully.
