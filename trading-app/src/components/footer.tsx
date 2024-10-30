@@ -24,11 +24,6 @@ const Footer: React.FC = () => {
               Terms of Service
             </a>
           </Link>
-          <Link href="/contact">
-            <a className="text-gray-400 hover:text-white transition duration-300 text-sm md:text-base">
-              Contact Us
-            </a>
-          </Link>
         </div>
 
         {/* Copyright */}

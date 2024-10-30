@@ -10,13 +10,7 @@ const CustomerSupport = () => {
 
     // Replace these with the appropriate phone number or username
     const phoneNumber = '13237727441'; // e.g., '15555555555'
-
-    // Create WhatsApp URL
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    // Create Telegram URL
-
-    // Optionally: Use either WhatsApp or Telegram based on user choice
-    // For demonstration, we'll just open WhatsApp here
     window.open(whatsappUrl, '_blank');
 
     console.log('Message sent:', message);
