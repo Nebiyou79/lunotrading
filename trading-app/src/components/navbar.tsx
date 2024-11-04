@@ -105,6 +105,9 @@ const NavBar = () => {
             <Link href="/markets" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
               Markets
             </Link>
+            <Link href="/tradehistory" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+              Trades
+            </Link>
             {loggedIn && (
               <>
                 <Link href="/dashboard" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
