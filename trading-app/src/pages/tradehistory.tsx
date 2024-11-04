@@ -44,57 +44,64 @@ const TradeHistory: React.FC = () => {
 
   return (
     <div className="bg-gray-900 p-6 rounded-xl shadow-lg text-white w-full">
-      <NavBar/>
+      <NavBar />
       <h2 className="text-2xl font-bold mb-6 text-blue-500 text-center">Trade History</h2>
 
       {trades.length > 0 ? (
-        <table className="min-w-full bg-gray-800 rounded-lg">
-          <thead>
-            <tr className="text-left border-b border-gray-700">
-              <th className="p-4 font-semibold text-gray-300">Asset</th>
-              <th className="p-4 font-semibold text-gray-300">Capital (USDT)</th>
-              <th className="p-4 font-semibold text-gray-300">Return Rate (%)</th>
-              <th className="p-4 font-semibold text-gray-300">Leverage</th>
-              <th className="p-4 font-semibold text-gray-300">Status</th>
-              <th className="p-4 font-semibold text-gray-300">Profit/Loss (USDT)</th>
-              <th className="p-4 font-semibold text-gray-300">Time Left</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trades.map((trade: Trade) => {
-              const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-gray-800 rounded-lg table-auto">
+            <thead>
+              <tr className="text-left border-b border-gray-700">
+                <th className="p-4 font-semibold text-gray-300">Asset</th>
+                <th className="p-4 font-semibold text-gray-300">Capital (USDT)</th>
+                <th className="p-4 font-semibold text-gray-300">Return Rate (%)</th>
+                <th className="p-4 font-semibold text-gray-300">Leverage</th>
+                <th className="p-4 font-semibold text-gray-300">Status</th>
+                <th className="p-4 font-semibold text-gray-300">Profit/Loss (USDT)</th>
+                <th className="p-4 font-semibold text-gray-300">Time Left</th>
+              </tr>
+            </thead>
+            <tbody>
+              {trades.map((trade: Trade, index) => {
+                const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
 
-              const statusColor =
-                trade.status === 'win'
-                  ? 'text-green-500'
-                  : trade.status === 'lose'
-                  ? 'text-red-500'
-                  : 'text-gray-500';
+                const statusColor =
+                  trade.status === 'win'
+                    ? 'text-green-500'
+                    : trade.status === 'lose'
+                    ? 'text-red-500'
+                    : 'text-gray-500';
 
-              const profitLossAmount = trade.resultAmount || 0;
-              const profitLoss =
-                trade.status === 'win'
-                  ? `+${profitLossAmount.toFixed(2)}`
-                  : trade.status === 'lose'
-                  ? `-${Math.abs(profitLossAmount).toFixed(2)}`
-                  : '0.00';
+                const profitLossAmount = trade.resultAmount || 0;
+                const profitLoss =
+                  trade.status === 'win'
+                    ? `+${profitLossAmount.toFixed(2)}`
+                    : trade.status === 'lose'
+                    ? `-${Math.abs(profitLossAmount).toFixed(2)}`
+                    : '0.00';
 
-              return (
-                <tr key={trade._id} className="hover:bg-gray-700 transition duration-150 ease-in-out">
-                  <td className="p-4">{trade.assetId}</td>
-                  <td className="p-4">{trade.capital} USDT</td>
-                  <td className="p-4">{trade.returnRate}%</td>
-                  <td className="p-4">{trade.leverage}x</td>
-                  <td className={`p-4 ${statusColor}`}>{trade.status}</td>
-                  <td className={`p-4 font-bold ${statusColor}`}>{profitLoss}</td>
-                  <td className="p-4">
-                    {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                return (
+                  <tr
+                    key={trade._id}
+                    className={`hover:bg-gray-700 ${
+                      index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-700'
+                    } transition duration-150 ease-in-out`}
+                  >
+                    <td className="p-4">{trade.assetId}</td>
+                    <td className="p-4">{trade.capital} USDT</td>
+                    <td className="p-4">{trade.returnRate}%</td>
+                    <td className="p-4">{trade.leverage}x</td>
+                    <td className={`p-4 ${statusColor}`}>{trade.status}</td>
+                    <td className={`p-4 font-bold ${statusColor}`}>{profitLoss}</td>
+                    <td className="p-4">
+                      {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p className="text-center text-gray-400">No trade history available.</p>
       )}

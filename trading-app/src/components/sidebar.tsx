@@ -38,10 +38,6 @@ const Sidebar = () => {
           <FaEdit className="text-white text-3xl mr-3" />
           <span className="text-white">Update Profile</span>
         </Link>
-        <Link href="/dashboard/tradehistory" className="flex items-center mb-6 hover:text-blue-400 transition">
-          <FaHistory className="text-white text-3xl mr-3" />
-          <span className="text-white">Trade History</span>
-        </Link>
         <Link href="/dashboard/customerSupport" className="flex items-center hover:text-blue-400 transition">
           <FaHeadset className="text-white text-3xl mr-3" />
           <span className="text-white">Customer Support</span>
