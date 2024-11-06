@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaUser, FaIdCard, FaEdit, FaHistory, FaHeadset } from 'react-icons/fa';
+import { FaUser, FaIdCard, FaEdit, FaHeadset } from 'react-icons/fa';
 
 const Sidebar = () => {
   return (
@@ -15,9 +15,6 @@ const Sidebar = () => {
         </Link>
         <Link href="/dashboard/updateProfile" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
           <FaEdit className="text-white text-2xl" />
-        </Link>
-        <Link href="/dashboard/tradehistory" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
-          <FaHistory className="text-white text-2xl" />
         </Link>
         <Link href="/dashboard/customerSupport" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
           <FaHeadset className="text-white text-2xl" />
