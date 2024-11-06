@@ -46,55 +46,60 @@ const TradeHistory: React.FC = () => {
       <h2 className="text-2xl font-bold mb-6 text-blue-500 text-center">Trade History</h2>
 
       {trades.length > 0 ? (
-        <div className="space-y-4">
-          {trades.map((trade: Trade) => {
-            const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
-            const statusColor =
-              trade.status === 'win'
-                ? 'text-green-500'
-                : trade.status === 'lose'
-                ? 'text-red-500'
-                : 'text-gray-500';
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-gray-800 rounded-lg table-auto">
+            <thead>
+              <tr className="text-left border-b border-gray-700">
+                <th className="p-4 font-semibold text-gray-300">Asset</th>
+                <th className="p-4 font-semibold text-gray-300">Capital (USDT)</th>
+                <th className="p-4 font-semibold text-gray-300">Return Rate (%)</th>
+                <th className="p-4 font-semibold text-gray-300">Leverage</th>
+                <th className="p-4 font-semibold text-gray-300">Status</th>
+                <th className="p-4 font-semibold text-gray-300">Profit/Loss (USDT)</th>
+                <th className="p-4 font-semibold text-gray-300">Time Left</th>
+              </tr>
+            </thead>
+            <tbody>
+              {trades.map((trade: Trade, index) => {
+                const remainingTime = calculateRemainingTime(trade.createdAt, trade.duration);
+                const statusColor =
+                  trade.status === 'win'
+                    ? 'text-green-500'
+                    : trade.status === 'lose'
+                    ? 'text-red-500'
+                    : 'text-gray-500';
 
-            const profitLossAmount = trade.resultAmount || 0;
-            const profitLoss =
-              trade.status === 'win'
-                ? `+${profitLossAmount.toFixed(2)}`
-                : trade.status === 'lose'
-                ? `-${Math.abs(profitLossAmount).toFixed(2)}`
-                : '0.00';
+                const profitLossAmount = trade.resultAmount || 0;
+                const profitLoss =
+                  trade.status === 'win'
+                    ? `+${profitLossAmount.toFixed(2)}`
+                    : trade.status === 'lose'
+                    ? `-${Math.abs(profitLossAmount).toFixed(2)}`
+                    : '0.00';
 
-            return (
-              <div
-                key={trade._id}
-                className="p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition duration-150 ease-in-out md:flex md:items-center md:justify-between"
-              >
-                <div className="text-lg font-bold text-blue-400 mb-2 md:mb-0">
-                  {trade.assetId}
-                </div>
-                <div className="space-y-1 md:space-y-0 md:flex md:gap-4 md:items-center">
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-300">Capital:</span> {trade.capital} USDT
-                  </div>
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-300">Return Rate:</span> {trade.returnRate}%
-                  </div>
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-300">Leverage:</span> {trade.leverage}x
-                  </div>
-                  <div className={`text-sm font-semibold ${statusColor}`}>
-                    <span className="text-gray-300">Status:</span> {trade.status}
-                  </div>
-                  <div className={`text-sm font-bold ${statusColor}`}>
-                    <span className="text-gray-300">Profit/Loss:</span> {profitLoss} USDT
-                  </div>
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-300">Time Left:</span> {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                return (
+                  <tr
+                    key={trade._id}
+                    className={`hover:bg-gray-700 ${
+                      index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-700'
+                    } transition duration-150 ease-in-out`}
+                  >
+                    <td className="p-4 font-medium text-gray-300">{trade.assetId}</td>
+                    <td className="p-4 text-center font-medium text-gray-300">{trade.capital} USDT</td>
+                    <td className="p-4 text-center font-medium text-gray-300">{trade.returnRate}%</td>
+                    <td className="p-4 text-center font-medium text-gray-300">{trade.leverage}x</td>
+                    <td className={`p-4 text-center font-medium ${statusColor}`}>{trade.status}</td>
+                    <td className={`p-4 font-medium text-center ${statusColor}`}>
+                      {profitLoss} USDT
+                    </td>
+                    <td className="p-4 text-center font-medium text-gray-300">
+                      {remainingTime > 0 ? `${Math.floor(remainingTime)}s` : 'Expired'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p className="text-center text-gray-400">No trade history available.</p>
