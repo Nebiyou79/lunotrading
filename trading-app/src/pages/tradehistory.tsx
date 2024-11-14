@@ -7,7 +7,6 @@ interface Trade {
   assetId: string;
   capital: number;
   returnRate: number;
-  leverage: number;
   status: string;
   resultAmount: number;
   createdAt: string;
@@ -78,9 +77,6 @@ const TradeHistory: React.FC = () => {
                   </div>
                   <div className="text-sm">
                     <span className="font-semibold text-gray-300">Return Rate:</span> {trade.returnRate}%
-                  </div>
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-300">Leverage:</span> {trade.leverage}x
                   </div>
                   <div className={`text-sm font-semibold ${statusColor}`}>
                     <span className="text-gray-300">Status:</span> {trade.status}

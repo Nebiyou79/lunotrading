@@ -9,7 +9,6 @@ interface Trade {
   assetId: string;
   capital: number;
   returnRate: number;
-  leverage: number;
   status: 'pending' | 'win' | 'lose';
   resultAmount: number;
 }
@@ -93,7 +92,6 @@ const AdminTrades: React.FC = () => {
                 <th className="py-2 px-4 text-left">Asset</th>
                 <th className="py-2 px-4 text-left">Capital</th>
                 <th className="py-2 px-4 text-left">Return Rate</th>
-                <th className="py-2 px-4 text-left">Leverage</th>
                 <th className="py-2 px-4 text-left">Status</th>
                 <th className="py-2 px-4 text-left">Actions</th>
               </tr>
@@ -114,7 +112,6 @@ const AdminTrades: React.FC = () => {
                   <td className="py-2 px-4">{trade.assetId}</td>
                   <td className="py-2 px-4">{trade.capital}</td>
                   <td className="py-2 px-4">{trade.returnRate}</td>
-                  <td className="py-2 px-4">{trade.leverage}</td>
                   <td className="py-2 px-4">{trade.status}</td>
                   <td className="py-2 px-4">
                     {trade.status === 'pending' && (

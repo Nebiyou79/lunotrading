@@ -34,7 +34,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
   const [newBalance, setNewBalance] = useState(balance);
   const [capital, setCapital] = useState<number>(100);
   const [returnRate, setReturnRate] = useState<number>(12);
-  const [leverage, setLeverage] = useState<number>(1);
   const [expectedReturn, setExpectedReturn] = useState<number>(0);
   const [transactionFee, setTransactionFee] = useState<number>(0);
   const [duration, setDuration] = useState<number>(30);
@@ -48,11 +47,11 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
   };
 
   useEffect(() => {
-    const returnAmount = (capital * returnRate * leverage) / 100;
+    const returnAmount = (capital * returnRate ) / 100;
     const fee = capital * 0.02;
     setExpectedReturn(returnAmount);
     setTransactionFee(fee);
-  }, [capital, returnRate, leverage]);
+  }, [capital, returnRate]);
 
   const validateBalance = () => {
     const minCapital = minimumCapitalRequirements[duration];
@@ -70,7 +69,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
         assetId: coinName,
         capital,
         returnRate,
-        leverage,
         duration,
         transactionFee,
       };
@@ -128,18 +126,6 @@ const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amo
               </button>
             ))}
           </div>
-        </div>
-
-        <div className="mt-4">
-          <label className="block mb-2 text-lg">Leverage:</label>
-          <input
-            type="number"
-            value={leverage}
-            onChange={(e) => setLeverage(Number(e.target.value))}
-            className="w-full p-2 text-black rounded"
-            min={1}
-            max={5}
-          />
         </div>
 
         <div className="mt-6 text-lg grid grid-cols-1 gap-4">
