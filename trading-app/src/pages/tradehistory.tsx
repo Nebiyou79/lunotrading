@@ -8,9 +8,10 @@ interface Trade {
   capital: number;
   returnRate: number;
   status: string;
+  direction: string;
   resultAmount: number;
   createdAt: string;
-  duration: number;
+  duration: number; 
 }
 
 const TradeHistory: React.FC = () => {
@@ -77,6 +78,9 @@ const TradeHistory: React.FC = () => {
                   </div>
                   <div className="text-sm">
                     <span className="font-semibold text-gray-300">Return Rate:</span> {trade.returnRate}%
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold text-gray-300">Return Rate:</span> {trade.direction}%
                   </div>
                   <div className={`text-sm font-semibold ${statusColor}`}>
                     <span className="text-gray-300">Status:</span> {trade.status}

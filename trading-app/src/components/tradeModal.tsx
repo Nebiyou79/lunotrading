@@ -28,6 +28,7 @@ interface TradingModalProps {
   amountBTCUSD: number;
   coinName: string | null;
   balance: number;
+  action: string | null; 
 }
 
 const TradingModal: React.FC<TradingModalProps> = ({ isOpen, onRequestClose, amountBTCUSD, coinName, balance }) => {

@@ -21,6 +21,7 @@ const Markets = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [expandedCoin, setExpandedCoin] = useState<string | null>(null);
+    const [userAction, setUserAction] = useState<string | null>(null);
     const [coinHistoricalData, setCoinHistoricalData] = useState<number[][]>([]); // Historical price data
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedCoinPrice, setSelectedCoinPrice] = useState<number | null>(null);
@@ -85,12 +86,12 @@ const Markets = () => {
         setExpandedCoin((prev) => (prev === coinId ? null : coinId));
     };
 
-    const openModal = (price: number, name: string) => {
+    const openModal = (price: number, name: string, action: string) => {
         setSelectedCoinPrice(price);
-        setSelectedCoinName(name); // Set the coin name
+        setSelectedCoinName(name);
+        setUserAction(action); // Set the action to either "Up" or "Down"
         setIsModalOpen(true);
-        
-    }
+    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -200,13 +201,13 @@ const Markets = () => {
                                     <div className="flex justify-center space-x-2 mt-4">
                                         <button 
                                             className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-                                            onClick={() => openModal(coin.current_price, coin.name)}
+                                            onClick={() => openModal(coin.current_price, coin.name, "Up")}
                                         >
                                             Up
                                         </button>
                                         <button 
                                             className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                                            onClick={() => openModal(coin.current_price, coin.name)}
+                                            onClick={() => openModal(coin.current_price, coin.name, "Down")}
                                         >
                                             Down
                                         </button>
@@ -226,6 +227,7 @@ const Markets = () => {
                 amountBTCUSD={selectedCoinPrice} // Pass the coin price
                 coinName={selectedCoinName}
                 balance = {user.balance}
+                action={userAction}
             />
             )}
 

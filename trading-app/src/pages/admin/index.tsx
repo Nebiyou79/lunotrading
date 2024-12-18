@@ -21,12 +21,17 @@ const UsersPage: React.FC = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setUsers(response.data);
-        response.data.forEach((user: User) => fetchAutoMode(user._id));
-        toast.success('User loaded successfully')
+
+        // Sort users alphabetically by name
+        const sortedUsers = response.data.sort((a, b) => a.name.localeCompare(b.name));
+        setUsers(sortedUsers);
+
+        // Fetch trade modes for sorted users
+        sortedUsers.forEach((user: User) => fetchAutoMode(user._id));
+        toast.success('Users loaded successfully');
       } catch (error) {
         console.error('Error fetching users:', error);
-        toast.error('Error fetching users')
+        toast.error('Error fetching users');
       }
     };
 
