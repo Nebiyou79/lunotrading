@@ -9,9 +9,9 @@ exports.placeTrade = async (req, res) => {
     const userId = req.user.id;
 
     // Validate direction
-    if (!['Up', 'Down'].includes(direction)) {
-      return res.status(400).json({ message: 'Invalid trade direction' });
-    }
+    // if (!['Up', 'Down'].includes(direction)) {
+    //   return res.status(400).json({ message: 'Invalid trade direction' });
+    // }
 
     // Fetch the user
     const user = await User.findById(userId);
@@ -34,7 +34,7 @@ exports.placeTrade = async (req, res) => {
       returnRate,
       duration,
       transactionFee,
-      direction,  // Save the direction in the trade record
+      // direction,  // Save the direction in the trade record
       status: 'pending',
     });
 
