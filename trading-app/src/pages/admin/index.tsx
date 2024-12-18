@@ -9,6 +9,8 @@ const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false); // Delete confirmation modal state
+  const [userToDelete, setUserToDelete] = useState<User | null>(null); // User to be deleted
   const [tradeModes, setTradeModes] = useState<{ [key: string]: string }>({}); // For storing user trade modes
 
   // Fetch all users and their trade modes
@@ -82,19 +84,29 @@ const UsersPage: React.FC = () => {
     }
   };
 
-  const handleDeleteUser = async (userId: string) => {
+  const confirmDeleteUser = (user: User) => {
+    setUserToDelete(user);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteUser = async () => {
+    if (!userToDelete) return;
+
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`https://lunotrading.com/api/auth/users/${userId}`, {
+      await axios.delete(`https://lunotrading.com/api/auth/users/${userToDelete._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userToDelete._id));
       toast.success('User deleted successfully');
+      setIsDeleteModalOpen(false);
+      setUserToDelete(null);
     } catch (error) {
       console.error('Error deleting user:', error);
       toast.error('Error deleting user');
+      setIsDeleteModalOpen(false);
     }
   };
 
@@ -108,7 +120,6 @@ const UsersPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // Function to handle trade mode updates (toggle between 'alwaysWin', 'alwaysLose', 'off')
   const handleToggleTradeMode = async (userId: string, mode: string) => {
     try {
       const token = localStorage.getItem('token');
@@ -140,7 +151,6 @@ const UsersPage: React.FC = () => {
       <div className="flex-1 p-10 bg-gray-100 min-h-screen">
         <h2 className="text-3xl font-semibold text-gray-800 mb-6">Users Management</h2>
 
-        {/* Table Wrapper */}
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">
           <table className="w-full text-left table-auto">
             <thead className="bg-blue-600 text-white">
@@ -169,14 +179,14 @@ const UsersPage: React.FC = () => {
                     </button>
                     <button
                       className="text-red-500 hover:underline"
-                      onClick={() => handleDeleteUser(user._id)}
+                      onClick={() => confirmDeleteUser(user)}
                     >
                       Delete
                     </button>
                   </td>
                   <td className="py-3 px-4 text-center">
                     <select
-                      value={tradeModes[user._id] || 'off'} // Display the current trade mode
+                      value={tradeModes[user._id] || 'off'}
                       onChange={(e) => handleToggleTradeMode(user._id, e.target.value)}
                       className="bg-gray-200 p-2 rounded-md"
                     >
@@ -191,13 +201,37 @@ const UsersPage: React.FC = () => {
           </table>
         </div>
 
-        {/* Render Modal */}
+        {/* Edit User Modal */}
         {isModalOpen && selectedUser && (
           <EditUserModal
             user={selectedUser}
             onClose={handleModalClose}
             onUpdate={handleUpdateUser}
           />
+        )}
+
+        {/* Delete Confirmation Modal */}
+        {isDeleteModalOpen && userToDelete && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h2 className="text-lg font-bold mb-4">Are you sure?</h2>
+              <p className="mb-6">Do you really want to delete user <b>{userToDelete.name}</b>?</p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                  onClick={() => setIsDeleteModalOpen(false)}
+                >
+                  No
+                </button>
+                <button
+                  className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                  onClick={handleDeleteUser}
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
