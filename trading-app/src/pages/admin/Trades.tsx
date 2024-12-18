@@ -10,7 +10,7 @@ interface Trade {
   capital: number;
   returnRate: number;
   status: 'pending' | 'win' | 'lose';
-  direction: 'up' | 'down';
+  // direction: 'up' | 'down';
   resultAmount: number;
 }
 
@@ -93,7 +93,7 @@ const AdminTrades: React.FC = () => {
                 <th className="py-2 px-4 text-left">Asset</th>
                 <th className="py-2 px-4 text-left">Capital</th>
                 <th className="py-2 px-4 text-left">Return Rate</th>
-                <th className="py-2 px-4 text-left">Direction</th>
+                {/* <th className="py-2 px-4 text-left">Direction</th> */}
                 <th className="py-2 px-4 text-left">Status</th>
                 <th className="py-2 px-4 text-left">Actions</th>
               </tr>
@@ -114,7 +114,7 @@ const AdminTrades: React.FC = () => {
                   <td className="py-2 px-4">{trade.assetId}</td>
                   <td className="py-2 px-4">{trade.capital}</td>
                   <td className="py-2 px-4">{trade.returnRate}</td>
-                  <td className="py-2 px-4">{trade.direction}</td>
+                  {/* <td className="py-2 px-4">{trade.direction}</td> */}
                   <td className="py-2 px-4">{trade.status}</td>
                   <td className="py-2 px-4">
                     {trade.status === 'pending' && (
