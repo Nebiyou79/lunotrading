@@ -89,7 +89,6 @@ const Markets = () => {
     const openModal = (price: number, name: string) => {
         setSelectedCoinPrice(price);
         setSelectedCoinName(name);
-        // setUserAction(action); // Set the action to either "Up" or "Down"
         setIsModalOpen(true);
     };
 
@@ -227,7 +226,6 @@ const Markets = () => {
                 amountBTCUSD={selectedCoinPrice} // Pass the coin price
                 coinName={selectedCoinName}
                 balance = {user.balance}
-                // action={userAction}
             />
             )}
 
