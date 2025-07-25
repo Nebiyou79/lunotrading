@@ -9,7 +9,7 @@ const CustomerSupport = () => {
     e.preventDefault();
 
     // Replace these with the appropriate phone number or username
-    const phoneNumber = '251977809831'; // e.g., '15555555555'
+    const phoneNumber = '1(920)7146253'; // e.g., '15555555555'
 
     // Create WhatsApp URL
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
