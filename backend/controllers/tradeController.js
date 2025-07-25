@@ -5,8 +5,13 @@ const User = require('../models/User');
 // Place a trade
 exports.placeTrade = async (req, res) => {
   try {
-    const { assetId, capital, returnRate, leverage, duration, transactionFee } = req.body;
+    const { assetId, capital, returnRate, duration, transactionFee, direction } = req.body;  // Added direction
     const userId = req.user.id;
+
+    // Validate direction
+    // if (!['Up', 'Down'].includes(direction)) {
+    //   return res.status(400).json({ message: 'Invalid trade direction' });
+    // }
 
     // Fetch the user
     const user = await User.findById(userId);
@@ -27,9 +32,9 @@ exports.placeTrade = async (req, res) => {
       assetId,
       capital,
       returnRate,
-      leverage,
       duration,
       transactionFee,
+      // direction,  // Save the direction in the trade record
       status: 'pending',
     });
 
@@ -59,17 +64,18 @@ exports.placeTrade = async (req, res) => {
     return res.status(500).json({ message: 'Error placing trade' });
   }
 };
- 
+
 exports.getUserTradeHistory = async (req, res) => {
   try {
-    const userId = req.user.id;  // Get user ID from the JWT token
+    const userId = req.user.id;
     const userTrades = await Trade.find({ user: userId }).sort({ createdAt: -1 });
-    return res.status(200).json(userTrades);
+    return res.status(200).json(userTrades); // `direction` will be included in each trade
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Error fetching trade history' });
   }
 };
+
 exports.decideTradeOutcome = async (req, res) => {
   try {
     const { tradeId, outcome } = req.body;    
@@ -81,7 +87,7 @@ exports.decideTradeOutcome = async (req, res) => {
       return res.status(404).json({ message: 'Trade not found' });
     }
     if (outcome === 'win') {
-      const winAmount = (trade.capital * trade.returnRate * trade.leverage) / 100;
+      const winAmount = (trade.capital * trade.returnRate ) / 100;
       trade.resultAmount = winAmount;
       trade.user.balance += trade.capital + winAmount;
     } else if (outcome === 'lose') {
@@ -117,7 +123,7 @@ exports.endTrade = async (req, res) => {
     } else {
       outcome = Math.random() < 0.5 ? 'win' : 'lose';
     }
-    const resultAmount = (trade.capital * trade.returnRate * trade.leverage) / 100;
+    const resultAmount = (trade.capital * trade.returnRate) / 100;
     if (outcome === 'win') {
       trade.user.balance += trade.capital + resultAmount - trade.transactionFee;
     } else {
@@ -164,6 +170,3 @@ exports.getAutoMode = async (req, res) => {
     return res.status(500).json({ message: 'Error fetching auto mode' });
   }
 };
-
-
-

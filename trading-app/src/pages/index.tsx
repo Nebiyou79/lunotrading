@@ -7,20 +7,20 @@ import 'swiper/css/pagination';
 import Link from 'next/link';
 
 const Home = () => {
-  // State to track if the user is authenticated
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Simulate a function to check authentication status
   const checkAuth = () => {
-    // Example: replace this with actual logic, such as checking cookies, localStorage, or an API call
-    const user = localStorage.getItem('user'); // Assume 'user' is stored in localStorage upon login
-    return !!user; // Returns true if user exists, false otherwise
+    const user = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    console.log('Check Auth:', user); // Debugging to see if user is present
+    return !!user; // Returns true if token exists, false otherwise
   };
 
   useEffect(() => {
     // Check if the user is authenticated when the component mounts
-    setIsAuthenticated(checkAuth());
-  }, []);
+    const authStatus = checkAuth();
+    setIsAuthenticated(authStatus);
+  }, []); // Empty dependency array ensures this runs once on mount
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -38,8 +38,9 @@ const Home = () => {
           <p className="text-lg md:text-2xl text-gray-200 mt-4">
             Empower your trading journey with real-time insights and expert analysis.
           </p>
+          {/* Conditionally set the link based on authentication */}
           <Link
-            href={isAuthenticated ? "/markets" : "/signup"}  // Conditionally set the link
+            href={isAuthenticated ? "/markets" : "/signup"}  // If authenticated, go to markets, else go to signup
             className="mt-6 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold"
           >
             Start Trading

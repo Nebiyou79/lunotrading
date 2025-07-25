@@ -15,30 +15,31 @@ export const getAllTrades = async () => {
     throw error;
   }
 };
+
 // Function to get user by ID
 export const getUserById = async (userId) => {
-    try {
-      const response = await axios.get(`${API_URL}/admin/users/${userId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      throw error;
-    }
-  };
+  try {
+    const response = await axios.get(`${API_URL}/admin/users/${userId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error;
+  }
+};
+
 // Function to decide trade outcome
 export const decideTradeOutcome = async (tradeData) => {
   try {
     const response = await axios.post(
       `${API_URL}/decide-trade`,
-      tradeData, // Correctly send tradeId and outcome here
+      tradeData, // Correctly send tradeId, outcome, and direction here if needed
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       }
     );
-    
-    // Handle the response correctly
+
     if (response.status === 200) {
       return response.data;
     } else {
@@ -49,12 +50,14 @@ export const decideTradeOutcome = async (tradeData) => {
     throw error;
   }
 };
-// Place trade service
-// Place trade service
+
+// Place trade service with direction
 export const placeTrade = async (tradeData) => {
   try {
     const token = localStorage.getItem('token');
     if (!token) throw new Error('No token found, please log in again.');
+
+    // Add direction to the payload if it is provided
     const response = await axios.post(`${API_URL}/trade/place`, tradeData, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -71,7 +74,6 @@ export const placeTrade = async (tradeData) => {
   }
 };
 
-
 // Get user trade history
 export const getUserTradeHistory = async () => {
   const token = localStorage.getItem('token');
@@ -83,7 +85,7 @@ export const getUserTradeHistory = async () => {
   return response.data;
 };
 
-//AUTO MODE 
+// End trade service
 export const endTrade = async (tradeId) => {
   const token = localStorage.getItem('token');
   const response = await axios.put(`${API_URL}/trade/end/${tradeId}`, {}, {
@@ -92,4 +94,4 @@ export const endTrade = async (tradeId) => {
     },
   });
   return response.data;
-}
+};

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { getDepositAddresses } from '../utils/depositService';
@@ -29,6 +28,7 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
             usdtAddress: response.data.usdtAddress || '',
           });
         }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         setError('Error fetching deposit addresses');
         toast.error('Error fetching deposit addresses.');
@@ -97,11 +97,11 @@ const DepositModal = ({ showDepositModal, setShowDepositModal, token }) => {
     <>
       {showDepositModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl md:w-11/12">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-3xl md:w-11/12 max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl mb-4 text-center text-white">Deposit Addresses</h2>
 
             {/* Deposit Options for Smaller Screens */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4">
               {/* ETH */}
               <div className="flex flex-col items-center">
                 <p>ETH</p>

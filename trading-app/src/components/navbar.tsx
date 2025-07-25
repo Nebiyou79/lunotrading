@@ -36,8 +36,8 @@ const NavBar = () => {
           </button>
         </div>
 
-        {/* Navigation Links */}
-        <ul className={`md:flex space-x-6 ${isOpen ? 'block' : 'hidden'} md:block`}>
+        {/* Desktop Navigation Links */}
+        <ul className={`md:flex md:space-x-6 hidden `}>
           <li>
             <Link href="/" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
               Home
@@ -46,6 +46,11 @@ const NavBar = () => {
           <li>
             <Link href="/markets" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
               Markets
+            </Link>
+          </li>
+          <li>
+            <Link href="/tradehistory" className="text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300">
+              Trades
             </Link>
           </li>
           {loggedIn ? (
@@ -79,6 +84,55 @@ const NavBar = () => {
           )}
         </ul>
       </div>
+
+      {/* Mobile Menu Items */}
+      {isOpen && (
+        <div className="md:hidden mt-4">
+          {/* Close Button */}
+          <div className="flex justify-end">
+            <button onClick={() => setIsOpen(false)} className="text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Dropdown Links */}
+          <div className="space-y-2 mt-4">
+            <Link href="/" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+              Home
+            </Link>
+            <Link href="/markets" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+              Markets
+            </Link>
+            <Link href="/tradehistory" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+              Trades
+            </Link>
+            {loggedIn && (
+              <>
+                <Link href="/dashboard" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+                  My Profile
+                </Link>
+                {role === 'admin' && (
+                  <Link href="/admin" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+                    Admin
+                  </Link>
+                )}
+                <button 
+                  onClick={handleLogout} 
+                  className="block w-full text-white font-semibold py-4 px-6 bg-red-600 hover:bg-red-700 transition-all duration-300 rounded-md text-center">
+                  Logout
+                </button>
+              </>
+            )}
+            {!loggedIn && (
+              <Link href="/login" className="block text-white font-semibold py-4 px-6 bg-blue-600 hover:bg-blue-700 transition-all duration-300 rounded-md text-center">
+                Login
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

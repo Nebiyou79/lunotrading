@@ -1,65 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { FaUser, FaIdCard, FaEdit, FaHistory, FaHeadset } from 'react-icons/fa';
+import { FaUser, FaIdCard, FaEdit, FaHeadset } from 'react-icons/fa';
 
 const Sidebar = () => {
-  // Hook for mobile view toggle
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className="md:w-64 bg-gray-800 p-6">
-      {/* Desktop View */}
-      <div className="hidden md:block">
-        <div className="text-center mb-8">
-          <h2 className="text-xl font-semibold">Personal Center</h2>
-        </div>
-        <nav className="space-y-4">
-          <Link href="/dashboard" className="block py-2.5 px-4 rounded transition hover:bg-gray-700">
-            Profile
-          </Link>
-          <Link href="/dashboard/kyc" className="block py-2.5 px-4 rounded transition hover:bg-gray-700">
-            KYC Verification
-          </Link>
-          <Link href="/dashboard/updateProfile" className="block py-2.5 px-4 rounded transition hover:bg-gray-700">
-            Update Profile
-          </Link>
-          <Link href="/dashboard/tradehistory" className="block py-2.5 px-4 rounded transition hover:bg-gray-700">
-            Trade History
-          </Link>
-          <Link href="/dashboard/customerSupport" className="block py-2.5 px-4 rounded transition hover:bg-gray-700">
-            Customer Support
-          </Link>
-        </nav>
+    <div>
+      {/* Mobile View */}
+      <div className="md:hidden bg-gray-800 p-4 flex flex-col space-y-4">
+        <Link href="/dashboard" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
+          <FaUser className="text-white text-2xl" />
+        </Link>
+        <Link href="/dashboard/kyc" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
+          <FaIdCard className="text-white text-2xl" />
+        </Link>
+        <Link href="/dashboard/updateProfile" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
+          <FaEdit className="text-white text-2xl" />
+        </Link>
+        <Link href="/dashboard/customerSupport" className="flex items-center p-3 rounded-lg bg-gray-700 hover:bg-blue-600 transition duration-300">
+          <FaHeadset className="text-white text-2xl" />
+        </Link>
       </div>
 
-      {/* Mobile View */}
-      <div className="md:hidden">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Menu</h2>
-          <button onClick={() => setIsOpen(!isOpen)} className="text-white">
-            ☰
-          </button>
-        </div>
-
-        {isOpen && (
-          <nav className="space-y-4">
-            <Link href="/dashboard" className="flex items-center py-2 px-3 rounded transition hover:bg-gray-700">
-              <FaUser className="mr-2" /> Profile
-            </Link>
-            <Link href="/dashboard/kyc" className="flex items-center py-2 px-3 rounded transition hover:bg-gray-700">
-              <FaIdCard className="mr-2" /> KYC Verification
-            </Link>
-            <Link href="/dashboard/updateProfile" className="flex items-center py-2 px-3 rounded transition hover:bg-gray-700">
-              <FaEdit className="mr-2" /> Update Profile
-            </Link>
-            <Link href="/dashboard/tradehistory" className="flex items-center py-2 px-3 rounded transition hover:bg-gray-700">
-              <FaHistory className="mr-2" /> Trade History
-            </Link>
-            <Link href="/dashboard/customerSupport" className="flex items-center py-2 px-3 rounded transition hover:bg-gray-700">
-              <FaHeadset className="mr-2" /> Customer Support
-            </Link>
-          </nav>
-        )}
+      {/* Desktop View (Full Sidebar) */}
+      <div className="hidden md:flex flex-col p-6 bg-gradient-to-b from-blue-900 to-gray-900 min-h-screen w-40">
+        <Link href="/dashboard" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaUser className="text-white text-3xl mr-3" />
+          <span className="text-white">User Profile</span>
+        </Link>
+        <Link href="/dashboard/kyc" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaIdCard className="text-white text-3xl mr-3" />
+          <span className="text-white">KYC Verification</span>
+        </Link>
+        <Link href="/dashboard/updateProfile" className="flex items-center mb-6 hover:text-blue-400 transition">
+          <FaEdit className="text-white text-3xl mr-3" />
+          <span className="text-white">Update Profile</span>
+        </Link>
+        <Link href="/dashboard/customerSupport" className="flex items-center hover:text-blue-400 transition">
+          <FaHeadset className="text-white text-3xl mr-3" />
+          <span className="text-white">Customer Support</span>
+        </Link>
       </div>
     </div>
   );
