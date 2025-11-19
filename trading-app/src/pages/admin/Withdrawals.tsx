@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import { getPendingWithdrawals, approveWithdrawal, rejectWithdrawal } from '../../utils/adminApiServices';
-import Sidebar from '../../components/admin/Sidebar'; // Assuming you have a Sidebar component
+import Sidebar from '../../components/admin/Sidebar';
 import { toast } from 'react-toastify';
 
 const Withdrawals = () => {
@@ -15,12 +15,12 @@ const Withdrawals = () => {
     const fetchWithdrawals = async () => {
       try {
         const data = await getPendingWithdrawals();
-        setWithdrawals(data as any);
-        setLoading(false);
-        toast.success('Success fetching withdrawals');
+        setWithdrawals(Array.isArray(data) ? data : []);
+        toast.success('Withdrawals fetched successfully');
       } catch (error: any) {
         setError('Failed to fetch pending withdrawals');
-        toast.success('Failed to fetch withdrawal');
+        toast.error('Failed to fetch withdrawals');
+      } finally {
         setLoading(false);
       }
     };
@@ -33,7 +33,7 @@ const Withdrawals = () => {
     try {
       await approveWithdrawal(withdrawalId);
       toast.success('Withdrawal approved successfully');
-      setWithdrawals(withdrawals.filter((w: any) => w._id !== withdrawalId));
+      setWithdrawals(prev => prev.filter((w: any) => w._id !== withdrawalId));
     } catch (error) {
       toast.error('Failed to approve withdrawal');
     }
@@ -44,10 +44,27 @@ const Withdrawals = () => {
     try {
       await rejectWithdrawal(withdrawalId);
       toast.success('Withdrawal rejected successfully');
-      setWithdrawals(withdrawals.filter((w: any) => w._id !== withdrawalId));
+      setWithdrawals(prev => prev.filter((w: any) => w._id !== withdrawalId));
     } catch (error) {
       toast.error('Failed to reject withdrawal');
     }
+  };
+
+  // Safe data access functions
+  const getUserEmail = (withdrawal: any) => {
+    return withdrawal?.userId?.email || 'N/A';
+  };
+
+  const getUserBalance = (withdrawal: any) => {
+    return withdrawal?.userId?.balance !== undefined ? `${withdrawal.userId.balance} USD` : 'N/A';
+  };
+
+  const getAmount = (withdrawal: any) => {
+    return `${withdrawal?.amount || 'N/A'} USD`;
+  };
+
+  const getAddress = (withdrawal: any) => {
+    return withdrawal?.address || 'N/A';
   };
 
   if (loading) return <div>Loading...</div>;
@@ -55,14 +72,11 @@ const Withdrawals = () => {
 
   return (
     <div className="flex">
-      {/* Sidebar */}
       <Sidebar />
 
-      {/* Main content */}
       <div className="flex-1 p-6">
         <h2 className="text-2xl font-bold mb-4">Pending Withdrawals</h2>
 
-        {/* Table */}
         {withdrawals.length === 0 ? (
           <p>No pending withdrawals</p>
         ) : (
@@ -80,10 +94,10 @@ const Withdrawals = () => {
               <tbody>
                 {withdrawals.map((withdrawal: any) => (
                   <tr key={withdrawal._id} className="border-b hover:bg-gray-100">
-                    <td className="px-4 py-2 text-sm text-gray-700">{withdrawal.userId.email}</td>
-                    <td className="px-4 py-2 text-sm text-gray-700">{withdrawal.userId.balance} USD</td>
-                    <td className="px-4 py-2 text-sm text-gray-700">{withdrawal.amount} USD</td>
-                    <td className="px-4 py-2 text-sm text-gray-700">{withdrawal.address}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{getUserEmail(withdrawal)}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{getUserBalance(withdrawal)}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{getAmount(withdrawal)}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{getAddress(withdrawal)}</td>
                     <td className="px-4 py-2">
                       <button
                         onClick={() => handleApprove(withdrawal._id)}
